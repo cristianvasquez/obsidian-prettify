@@ -104,3 +104,7 @@ npm run build
 ```
 
 This will create a `main.js` file in the project root. That is the entry point of your plugin.
+
+___
+
+> if you want, you can send me a coffee :) https://www.buymeacoffee.com/pelado
