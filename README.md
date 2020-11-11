@@ -120,8 +120,7 @@ mkdir -p $OBSIDIAN_VAULT_DIR/.obsidian/plugins
 unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plugins
 ```
 
-
+pretty-remarkable author: [Jon Schlinkert](https://github.com/jonschlinkert)
 
 ___
-
 > if you want, you can send me a coffee :) https://www.buymeacoffee.com/pelado
