@@ -3,5 +3,6 @@
   "name": "Markdown prettifier",
   "description": "Uses pretty-remarkable to fix and reformat ugly Markdown.",
   "isDesktopOnly": false,
-  "js": "main.js"
+  "js": "main.js",
+  "version": "0.0.1"
 }
