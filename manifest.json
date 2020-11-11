@@ -1,0 +1,7 @@
+{
+  "id": "markdown-prettifier",
+  "name": "Markdown prettifier",
+  "description": "Uses pretty-remarkable to fix and reformat ugly Markdown.",
+  "isDesktopOnly": false,
+  "js": "main.js"
+}
