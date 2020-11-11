@@ -4,6 +4,7 @@ Uses [pretty-remarkable](https://github.com/jonschlinkert/pretty-remarkable) to 
 
 The default hotkey is `Ctrl+Alt+L`.
 
+you can prettify a selection or the whole document.
 
 ### Tables
 
