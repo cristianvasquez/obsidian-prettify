@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic https://github.com/cristianvasquez/obsidian-prettify/issues/1 1`] = `
+"# issues/1
+
+Prettifier:
+
+- [ ] Don't break my TODO
+"
+`;
+
+exports[`basic https://github.com/cristianvasquez/obsidian-prettify/issues/1 2`] = `
+"# issues/1
+
+1. fjlkefjl
+  2. feafe
+2. feafea
+3. feaf
+  1. fea
+4. fefe
+"
+`;

@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic Basic functionality: alternate lists 1`] = `
+"## List alternation
+
+* a
+* b
+  - c
+  - d
+    + e
+    + f
+"
+`;
+
+exports[`basic Basic functionality: enumerate lists 1`] = `
+"## Lists numbering
+
+1. foo
+  a. aaa
+  b. bbb
+  c. ccc
+2. bar
+3. baz
+"
+`;
+
+exports[`basic Basic functionality: handle links 1`] = `
+"## Strange links
+
+A link : [foo](bar#baz)
+"
+`;
+
+exports[`basic Basic functionality: tables 1`] = `
+"## Tables
+
+| **A** | **B** | **C** | 
+| ---: | :--- | --- |
+| a | b | c |
+| x | y | z |
+"
+`;

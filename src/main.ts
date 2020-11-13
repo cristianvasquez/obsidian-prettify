@@ -2,7 +2,9 @@ import {App, MarkdownView, Plugin, PluginSettingTab} from "obsidian";
 // @ts-ignore
 import {Remarkable} from "remarkable";
 // @ts-ignore
-import prettify from "pretty-remarkable"
+import prettify from "./index"
+
+//https://github.com/cristianvasquez/obsidian-prettify/projects/1#card-49299670
 
 export default class MarkdownPrettifier extends Plugin {
     setting: MarkdownPrettifierSettings;
