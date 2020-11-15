@@ -1,8 +1,8 @@
 {
   "id": "markdown-prettifier",
   "name": "Markdown prettifier",
-  "description": "Uses pretty-remarkable to fix and reformat ugly Markdown.",
+  "description": "Uses remark-gfm to fix and reformat ugly Markdown.",
   "isDesktopOnly": false,
   "js": "main.js",
-  "version": "0.0.1"
+  "version": "0.0.2"
 }

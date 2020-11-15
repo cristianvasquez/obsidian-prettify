@@ -1,38 +1,24 @@
-// @ts-nocheck
-const Remarkable = require("remarkable");
-const prettify = require("../index");
+const prettifier = require('../prettifier')
 
-function parseContents(
-    content,
-    settings = {}
-) {
-    return new Remarkable.Remarkable()
-        .use(prettify)
-        .render(content);
-}
+// @TODO
+// Read with base __DIRNAME
+// run_spec(__dirname, ["markdown"], { proseWrap: "always" });
 
-describe("basic", () => {
-    const content = require("../mockData");
 
-    test("Basic functionality: tables", () => {
-        expect(parseContents(
-            `
-## Tables
-
+test("Basic functionality: tables", () => {
+    const content = `
 **A**|**B**|**C**
 |---:|:---|---|
 a |b |c
 x |y |z
             `
-        )).toMatchSnapshot();
+    return prettifier(content).then(data => {
+        expect(data).toMatchSnapshot();
     });
+});
 
-
-    test("Basic functionality: alternate lists", () => {
-        expect(parseContents(
-            `
-## List alternation
-
+test("Basic functionality: alternate lists", () => {
+    const content = `
 * a
 * b
   * c
@@ -40,14 +26,14 @@ x |y |z
     * e
     * f
             `
-        )).toMatchSnapshot();
+    return prettifier(content).then(data => {
+        expect(data).toMatchSnapshot();
     });
+});
 
-    test("Basic functionality: enumerate lists", () => {
-        expect(parseContents(
-            `
-## Lists numbering
 
+test("Basic functionality: enumerate lists", () => {
+    const content = `
 1. foo
   a. aaa
   b. bbb
@@ -55,18 +41,31 @@ x |y |z
 1. bar
 1. baz
             `
-        )).toMatchSnapshot();
+    return prettifier(content).then(data => {
+        expect(data).toMatchSnapshot();
     });
+});
 
-    test("Basic functionality: handle links", () => {
-        expect(parseContents(
+test("Basic functionality: enumerate lists", () => {
+    const content = `
+1. foo
+    1. aaa
+    1. bbb
+    4. ccc
+1. bar
+1. baz
             `
-## Strange links
-
-A link : [foo](bar){#baz}
-`
-        )).toMatchSnapshot();
+    return prettifier(content).then(data => {
+        expect(data).toMatchSnapshot();
     });
+});
 
-
+test("Basic functionality: dont break obsidian links", () => {
+    const content = `
+[[respect this]]
+    [[and this]][[also this]]
+            `
+    return prettifier(content).then(data => {
+        expect(data).toMatchSnapshot();
+    });
 });

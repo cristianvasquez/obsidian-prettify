@@ -1,38 +1,39 @@
-// @ts-nocheck
-const Remarkable = require("remarkable");
-const prettify = require("../index");
+const prettifier = require('../prettifier')
 
-function parseContents(
-    content,
-    settings = {}
-) {
-    return new Remarkable.Remarkable()
-        .use(prettify)
-        .render(content);
-}
 
-describe("basic", () => {
+// @TODO
+// Read with base __DIRNAME
+// run_spec(__dirname, ["markdown"], { proseWrap: "always" });
+
+describe("issues", () => {
+
 
     test("https://github.com/cristianvasquez/obsidian-prettify/issues/1", () => {
+        const content = `
+# issues/1
 
-        const mock = `# issues/1
 Prettifier:
-- [ ] Don't break my TODO`
-        expect(parseContents(mock)).toMatchSnapshot();
+- [ ] Don't break my TODO
+            `
+        return prettifier(content).then(data => {
+            expect(data).toMatchSnapshot();
+        });
     });
 
     test("https://github.com/cristianvasquez/obsidian-prettify/issues/1", () => {
-
-        const mock = `# issues/1
+        const content = `
+# issues/1
 
 1. fjlkefjl
     1. feafe
 2. feafea
 3. feaf
     1. fea
-3. fefe`
-
-        expect(parseContents(mock)).toMatchSnapshot();
+3. fefe
+            `
+        return prettifier(content).then(data => {
+            expect(data).toMatchSnapshot();
+        });
     });
 
 });

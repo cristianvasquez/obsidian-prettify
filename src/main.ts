@@ -1,11 +1,9 @@
 import {App, MarkdownView, Plugin, PluginSettingTab} from "obsidian";
+
 // @ts-ignore
-import {Remarkable} from "remarkable";
-// @ts-ignore
-import prettify from "./index"
+import prettifier from "./prettifier"
 
 //https://github.com/cristianvasquez/obsidian-prettify/projects/1#card-49299670
-
 export default class MarkdownPrettifier extends Plugin {
     setting: MarkdownPrettifierSettings;
 
@@ -44,20 +42,16 @@ export default class MarkdownPrettifier extends Plugin {
             let text = editor.getSelection()
 
             // Nothing selected, fall back to select all.
-            if (text==''){
+            if (text == '') {
                 editor.execCommand('selectAll')
                 text = editor.getSelection()
             }
 
-            const newString = this.prettify(text);
-            editor.replaceSelection(newString, "start");
-        }
-    }
+            prettifier(text).then(data => {
+                editor.replaceSelection(String(data), "start")
+            }).catch((err) => (console.error(err)));
 
-    prettify(text: String): string {
-        return new Remarkable()
-            .use(prettify)
-            .render(text);
+        }
     }
 }
 

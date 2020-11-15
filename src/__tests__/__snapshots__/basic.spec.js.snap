@@ -1,42 +1,77 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic Basic functionality: alternate lists 1`] = `
-"## List alternation
-
-* a
-* b
-  - c
-  - d
-    + e
-    + f
-"
+exports[`Basic functionality: alternate lists 1`] = `
+VFile {
+  "contents": "*   a
+*   b
+    *   c
+    *   d
+        *   e
+        *   f
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
 `;
 
-exports[`basic Basic functionality: enumerate lists 1`] = `
-"## Lists numbering
-
-1. foo
-  a. aaa
-  b. bbb
-  c. ccc
-2. bar
-3. baz
-"
+exports[`Basic functionality: dont break obsidian links 1`] = `
+VFile {
+  "contents": "[[respect this]]
+[[and this]][[also this]]
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
 `;
 
-exports[`basic Basic functionality: handle links 1`] = `
-"## Strange links
+exports[`Basic functionality: enumerate lists 1`] = `
+VFile {
+  "contents": "1.  foo
 
-A link : [foo](bar#baz)
-"
+a. aaa
+b. bbb
+c. ccc
+
+1.  bar
+2.  baz
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
 `;
 
-exports[`basic Basic functionality: tables 1`] = `
-"## Tables
+exports[`Basic functionality: enumerate lists 2`] = `
+VFile {
+  "contents": "1.  foo
+    1.  aaa
+    2.  bbb
+    3.  ccc
+2.  bar
+3.  baz
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
 
-| **A** | **B** | **C** | 
-| ---: | :--- | --- |
-| a | b | c |
-| x | y | z |
-"
+exports[`Basic functionality: tables 1`] = `
+VFile {
+  "contents": "| **A** | **B** | **C** |
+| ----: | :---- | ----- |
+|     a | b     | c     |
+|     x | y     | z     |
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
 `;
