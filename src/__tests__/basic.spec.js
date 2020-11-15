@@ -69,3 +69,25 @@ test("Basic functionality: dont break obsidian links", () => {
         expect(data).toMatchSnapshot();
     });
 });
+
+test("Embed youtube TODO", () => {
+    const content = `
+https://www.youtube.com/watch?v=B6rKUf9DWRI
+            `
+    return prettifier(content).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});
+
+test("Embed image", () => {
+    const content = `
+https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg
+            `
+    return prettifier(content).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});
+
+
+
+

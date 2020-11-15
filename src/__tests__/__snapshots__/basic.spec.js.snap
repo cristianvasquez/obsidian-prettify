@@ -75,3 +75,36 @@ VFile {
   "messages": Array [],
 }
 `;
+
+exports[`Embed image 1`] = `
+VFile {
+  "contents": "[![](https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg)](https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg)
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Embed youtube 1`] = `
+VFile {
+  "contents": "<https://www.youtube.com/watch?v=B6rKUf9DWRI>
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Embed youtube TODO 1`] = `
+VFile {
+  "contents": "<https://www.youtube.com/watch?v=B6rKUf9DWRI>
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
