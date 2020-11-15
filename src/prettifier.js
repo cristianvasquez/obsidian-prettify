@@ -2,7 +2,7 @@ const gfm = require('remark-gfm')
 const unified = require('unified')
 const parse = require('remark-parse')
 const stringify = require('./stringify')
-
+const images = require('remark-images')
 
 const settings = {
     bullet: '*',
@@ -15,7 +15,9 @@ function prettifier(
 ) {
 
     return remark()
+
         .use(gfm)
+        .use(images)
         .process(content)
 }
 
