@@ -74,10 +74,13 @@ After:
 |     x | y     | z     |
 ```
 
-## Uses
+## This plugin uses the following amazing libraries
 
-*   [remark-gfm](https://www.npmjs.com/package/remark-gfm)
+*   [remark](https://github.com/remarkjs/remark)
+*   [remark-gfm](https://github.com/remarkjs/remark-gfm#readme)
 *   [remark-images](https://github.com/remarkjs/remark-images)
+
+## Screencast
 
 ![./img/screen_cast.gif](./img/screen_cast.gif)
 
