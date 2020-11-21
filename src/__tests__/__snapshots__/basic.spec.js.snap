@@ -1,13 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Basic functionality: alternate lists 1`] = `
+exports[`Basic functionality: a formatted table 1`] = `
 VFile {
-  "contents": "*   a
-*   b
-    *   c
-    *   d
-        *   e
-        *   f
+  "contents": "| **A** | **B** | **C** |
+| ----: | :---- | ----- |
+|     a | b     | c     |
+|     x | y     | z     |
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
@@ -62,12 +60,59 @@ VFile {
 }
 `;
 
+exports[`Basic functionality: lists use * bullets 1`] = `
+VFile {
+  "contents": "*   a
+*   b
+    *   c
+    *   d
+        *   e
+        *   f
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Basic functionality: lists use - bullets 1`] = `
+VFile {
+  "contents": "-   a
+-   b
+    -   c
+    -   d
+        -   e
+        -   f
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
 exports[`Basic functionality: tables 1`] = `
 VFile {
   "contents": "| **A** | **B** | **C** |
 | ----: | :---- | ----- |
 |     a | b     | c     |
 |     x | y     | z     |
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Can generate metadata table 1`] = `
+VFile {
+  "contents": "The Web is not only about facts,
+It's about humans communicating all sorts of things.
+In their own language, with their own model of the world.
+
+perhaps 1% ? of the humans use it for facts?
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},

@@ -5,7 +5,7 @@ const prettifier = require('../prettifier')
 // run_spec(__dirname, ["markdown"], { proseWrap: "always" });
 
 
-test("Basic functionality: tables", () => {
+test("Basic functionality: a formatted table", () => {
     const content = `
 **A**|**B**|**C**
 |---:|:---|---|
@@ -17,7 +17,8 @@ x |y |z
     });
 });
 
-test("Basic functionality: alternate lists", () => {
+
+test("Basic functionality: lists use - bullets", () => {
     const content = `
 * a
 * b
@@ -31,6 +32,19 @@ test("Basic functionality: alternate lists", () => {
     });
 });
 
+test("Basic functionality: lists use * bullets",  () => {
+    const content = `
+- a
+- b
+  - c
+  - d
+    - e
+    - f
+            `
+    return prettifier(content, {bullet: '*'}).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});
 
 test("Basic functionality: enumerate lists", () => {
     const content = `
@@ -88,6 +102,18 @@ https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg
     });
 });
 
+test("Can generate metadata table", () => {
+    const options = {
+        title: 'What the Semantic Web ignores'
+    }
+    const content = `
+The Web is not only about facts,
+It's about humans communicating all sorts of things.
+In their own language, with their own model of the world.
 
-
-
+perhaps 1% ? of the humans use it for facts?
+            `
+    return prettifier(content).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});
