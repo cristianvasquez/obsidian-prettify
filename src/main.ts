@@ -1,4 +1,4 @@
-import {App, MarkdownView, Plugin, PluginSettingTab} from "obsidian";
+import {App, MarkdownView, Plugin, PluginSettingTab, Setting} from "obsidian";
 
 // @ts-ignore
 import prettifier from "./prettifier"
@@ -56,7 +56,7 @@ export default class MarkdownPrettifier extends Plugin {
 }
 
 class MarkdownPrettifierSettings {
-    // firstNumber = 0;
+     bulletSymbol = '*';
     // secondNumber = 5;
 }
 
@@ -71,19 +71,18 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
     display(): void {
         const {containerEl} = this;
         const settings = this.plugin.setting;
-        // new Setting(containerEl)
-        //     .setName("First setting")
-        //     .setDesc(
-        //         "Explanation for the first setting."
-        //     )
-        //     .addText((text) =>
-        //         text.setValue(String(settings.firstNumber)).onChange((value) => {
-        //             if (!isNaN(Number(value))) {
-        //                 settings.firstNumber = Number(value);
-        //                 this.plugin.saveData(settings);
-        //             }
-        //         })
-        //     );
+        new Setting(containerEl)
+            .setName("First setting")
+            .setDesc(
+                "Explanation for the first setting."
+            )
+            .addText((text) =>
+                text.setValue(String(settings.bulletSymbol)).onChange((value) => {
+                    settings.bulletSymbol = value;
+                    this.plugin.saveData(settings);
+                })
+            );
+
         // new Setting(containerEl)
         //     .setName("Second number")
         //     .setDesc("I don't know yet the purpose of this second number.")
@@ -95,5 +94,6 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
         //             }
         //         })
         //     );
+
     }
 }

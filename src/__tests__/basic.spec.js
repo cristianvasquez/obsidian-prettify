@@ -18,6 +18,21 @@ x |y |z
 });
 
 
+test("Basic functionality: lists use * bullets", () => {
+    const content = `
+- a
+- b
+  - c
+  - d
+    - e
+    - f
+            `
+    return prettifier(content, {bullet: '*'}).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});
+
+
 test("Basic functionality: lists use - bullets", () => {
     const content = `
 * a
@@ -32,14 +47,15 @@ test("Basic functionality: lists use - bullets", () => {
     });
 });
 
-test("Basic functionality: lists use * bullets",  () => {
+
+test("Basic functionality: alternating keeps information of different codification", () => {
     const content = `
 - a
 - b
-  - c
+  * c
   - d
     - e
-    - f
+    * f
             `
     return prettifier(content, {bullet: '*'}).then(data => {
         expect(data).toMatchSnapshot();
@@ -103,17 +119,18 @@ https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg
 });
 
 test("Can generate metadata table", () => {
-    const options = {
-        title: 'What the Semantic Web ignores'
-    }
     const content = `
+# What the Semantic Web ignores
+    
 The Web is not only about facts,
 It's about humans communicating all sorts of things.
 In their own language, with their own model of the world.
 
 perhaps 1% ? of the humans use it for facts?
             `
-    return prettifier(content).then(data => {
+    return prettifier(content, {addMetadataTable: true},{
+        title:'The immortality of the crab'
+    }).then(data => {
         expect(data).toMatchSnapshot();
     });
 });

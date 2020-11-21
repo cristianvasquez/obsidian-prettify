@@ -1,24 +1,38 @@
 const gfm = require('remark-gfm')
 const unified = require('unified')
 const parse = require('remark-parse')
-const stringify = require('./stringify')
 const images = require('remark-images')
-
-const settings = {
-    bullet: '*',
-}
-const remark = unified().use(parse).use(stringify, settings).freeze()
+const frontmatter = require('remark-frontmatter');
+const metadata = require('remark-metadata');
+const stringify = require('./stringify')
+const remark = unified().use(parse).freeze()
 
 function prettifier(
     content,
-    settings = {}
+    {bullet = '-', emphasis = '_', rule = '-', addMetadataTable = false} = {},
+    {title = undefined} = {}
 ) {
+    if (typeof title != "undefined") {
+        console.log('The title is defined!')
+    }
 
-    return remark()
+    let result = remark().use(gfm)
 
-        .use(gfm)
-        .use(images)
-        .process(content)
+    if (addMetadataTable) {
+        result = result.use(frontmatter)
+        result = result.use(metadata, {git: true})
+    }
+
+    const stringify_settings = {
+        bullet: bullet,
+        emphasis: emphasis,
+        rule: rule
+    }
+    result.use(stringify, stringify_settings)
+    result = result.use(images)
+    return result.process(content)
+
+
 }
 
 module.exports = prettifier
