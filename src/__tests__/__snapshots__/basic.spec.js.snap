@@ -1,12 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Basic functionality: alternate lists 1`] = `
+exports[`Basic functionality: a formatted table 1`] = `
+VFile {
+  "contents": "| **A** | **B** | **C** |
+| ----: | :---- | ----- |
+|     a | b     | c     |
+|     x | y     | z     |
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Basic functionality: alternating keeps information of different codification 1`] = `
 VFile {
   "contents": "*   a
 *   b
     *   c
+
+    <!---->
+
     *   d
         *   e
+
+        <!---->
+
         *   f
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
@@ -62,12 +82,30 @@ VFile {
 }
 `;
 
-exports[`Basic functionality: tables 1`] = `
+exports[`Basic functionality: lists use * bullets 1`] = `
 VFile {
-  "contents": "| **A** | **B** | **C** |
-| ----: | :---- | ----- |
-|     a | b     | c     |
-|     x | y     | z     |
+  "contents": "*   a
+*   b
+    *   c
+    *   d
+        *   e
+        *   f
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Basic functionality: lists use - bullets 1`] = `
+VFile {
+  "contents": "-   a
+-   b
+    -   c
+    -   d
+        -   e
+        -   f
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
@@ -88,17 +126,6 @@ VFile {
 `;
 
 exports[`Embed youtube 1`] = `
-VFile {
-  "contents": "<https://www.youtube.com/watch?v=B6rKUf9DWRI>
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
-`;
-
-exports[`Embed youtube TODO 1`] = `
 VFile {
   "contents": "<https://www.youtube.com/watch?v=B6rKUf9DWRI>
 ",

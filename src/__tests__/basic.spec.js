@@ -1,11 +1,6 @@
 const prettifier = require('../prettifier')
 
-// @TODO
-// Read with base __DIRNAME
-// run_spec(__dirname, ["markdown"], { proseWrap: "always" });
-
-
-test("Basic functionality: tables", () => {
+test("Basic functionality: a formatted table", () => {
     const content = `
 **A**|**B**|**C**
 |---:|:---|---|
@@ -17,7 +12,23 @@ x |y |z
     });
 });
 
-test("Basic functionality: alternate lists", () => {
+
+test("Basic functionality: lists use * bullets", () => {
+    const content = `
+- a
+- b
+  - c
+  - d
+    - e
+    - f
+            `
+    return prettifier(content, {bullet: '*'}).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});
+
+
+test("Basic functionality: lists use - bullets", () => {
     const content = `
 * a
 * b
@@ -31,6 +42,20 @@ test("Basic functionality: alternate lists", () => {
     });
 });
 
+
+test("Basic functionality: alternating keeps information of different codification", () => {
+    const content = `
+- a
+- b
+  * c
+  - d
+    - e
+    * f
+            `
+    return prettifier(content, {bullet: '*'}).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});
 
 test("Basic functionality: enumerate lists", () => {
     const content = `
@@ -70,7 +95,7 @@ test("Basic functionality: dont break obsidian links", () => {
     });
 });
 
-test("Embed youtube TODO", () => {
+test("Embed youtube", () => {
     const content = `
 https://www.youtube.com/watch?v=B6rKUf9DWRI
             `
@@ -87,7 +112,5 @@ https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg
         expect(data).toMatchSnapshot();
     });
 });
-
-
 
 
