@@ -1,9 +1,11 @@
 import {App, MarkdownView, Plugin, PluginSettingTab, Setting} from "obsidian";
 
+/**
+ * Being developed at: https://github.com/cristianvasquez/obsidian-prettify/projects/1
+ */
 // @ts-ignore
 import prettifier from "./prettifier"
 
-//https://github.com/cristianvasquez/obsidian-prettify/projects/1#card-49299670
 export default class MarkdownPrettifier extends Plugin {
     setting: MarkdownPrettifierSettings;
 
@@ -47,16 +49,28 @@ export default class MarkdownPrettifier extends Plugin {
                 text = editor.getSelection()
             }
 
-            prettifier(text).then(data => {
+            prettifier(text,
+                {
+                    bullet: '-',
+                    emphasis: '_',
+                    rule: '-',
+                    updateDatesInHeader: true,
+                    alwaysCreateHeader: true,
+                    lastModifiedAt: undefined,
+                }
+            ).then(data => {
                 editor.replaceSelection(String(data), "start")
-            }).catch((err) => (console.error(err)));
+            }).catch((err) => {
+                    console.error(err)
+                }
+            );
 
         }
     }
 }
 
 class MarkdownPrettifierSettings {
-     bulletSymbol = '*';
+    bulletSymbol = '*';
     // secondNumber = 5;
 }
 

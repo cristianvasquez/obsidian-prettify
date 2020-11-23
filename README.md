@@ -79,6 +79,7 @@ After:
 *   [remark](https://github.com/remarkjs/remark)
 *   [remark-gfm](https://github.com/remarkjs/remark-gfm#readme)
 *   [remark-images](https://github.com/remarkjs/remark-images)
+*   [remark-frontmatter](https://github.com/wooorm/remark-frontmatter)
 
 ## Screencast
 

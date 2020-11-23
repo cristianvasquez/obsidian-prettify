@@ -6,7 +6,7 @@ VFile {
 
 Prettifier:
 
-*   [ ] Don't break my TODO
+-   [ ] Don't break my TODO
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},

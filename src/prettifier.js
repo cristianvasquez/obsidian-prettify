@@ -3,33 +3,43 @@ const unified = require('unified')
 const parse = require('remark-parse')
 const images = require('remark-images')
 const frontmatter = require('remark-frontmatter');
-const metadata = require('remark-metadata');
+const table_writer = require('./table-writer');
 const stringify = require('./stringify')
 const remark = unified().use(parse).freeze()
 
 function prettifier(
     content,
-    {bullet = '-', emphasis = '_', rule = '-', addMetadataTable = false} = {},
-    {title = undefined} = {}
+    {
+        bullet = '-',
+        emphasis = '_',
+        rule = '-',
+        updateDatesInHeader = true,
+        alwaysCreateHeader = false,
+        lastModifiedAt = undefined,
+    } = {}
 ) {
-    if (typeof title != "undefined") {
-        console.log('The title is defined!')
+
+    let result = remark()
+        .use(gfm)
+
+    result = result.use(frontmatter)
+
+    if (updateDatesInHeader || alwaysCreateHeader) {
+        result = result.use(table_writer, {
+            alwaysCreateHeader: alwaysCreateHeader,
+            updateDatesInHeader: updateDatesInHeader,
+            lastModifiedAt: lastModifiedAt
+        })
     }
 
-    let result = remark().use(gfm)
+    result
+        .use(images)
+        .use(stringify, {
+            bullet: bullet,
+            emphasis: emphasis,
+            rule: rule
+        })
 
-    if (addMetadataTable) {
-        result = result.use(frontmatter)
-        result = result.use(metadata, {git: true})
-    }
-
-    const stringify_settings = {
-        bullet: bullet,
-        emphasis: emphasis,
-        rule: rule
-    }
-    result.use(stringify, stringify_settings)
-    result = result.use(images)
     return result.process(content)
 
 

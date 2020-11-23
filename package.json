@@ -32,6 +32,7 @@
     "remark-wiki-link": "^1.0.0",
     "repeat-string": "^1.0.0",
     "unified": "^9.2.0",
+    "yaml": "^2.0.0-1",
     "zwitch": "^1.0.0"
   },
   "devDependencies": {
@@ -41,7 +42,6 @@
     "@rollup/plugin-typescript": "^6.0.0",
     "@types/node": "^14.14.2",
     "jest": "^26.0.1",
-    "mdast-util-to-markdown": "^0.5.3",
     "obsidian": "https://github.com/obsidianmd/obsidian-api/tarball/master",
     "rollup": "^2.32.1",
     "rollup-plugin-babel": "^4.4.0",

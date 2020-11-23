@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Creates a header 1`] = `
+VFile {
+  "contents": "---
+lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
+---
+
+No Header
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Maintains properties in header 1`] = `
+VFile {
+  "contents": "---
+title: Example
+list:
+  - oneX
+  - 0
+  - false
+lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
+---
+
+# What the Semantic Web ignores
+
+The Web is not only about facts,
+It's about humans communicating all sorts of things.
+In their own language, with their own model of the world.
+
+perhaps 1% ? of the humans use it for facts?
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Respects hash 1`] = `
+VFile {
+  "contents": "---
+tag: '#Interpretability'
+lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
+---
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;

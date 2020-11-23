@@ -7,23 +7,23 @@ var defaultJoin = require('./join')
 
 function toMarkdown(tree, options) {
 
-  var settings = options || {}
-  var extensions = configure(settings)
-  var stack = []
-  var handle = zwitch('type', {
+  let settings = options || {}
+  let extensions = configure(settings)
+  let stack = []
+  let handle = zwitch('type', {
     invalid: invalid,
     unknown: unknown,
     handlers: extensions.handlers
   })
-  var context = {
+  let context = {
     handle: handle,
     stack: stack,
     enter: enter,
     options: settings,
-    unsafePatterns: extensions.unsafe,
+    unsafePatterns: [],//extensions.unsafe,
     join: extensions.join
   }
-  var result = handle(tree, null, context, {before: '\n', after: '\n'})
+  let result = handle(tree, null, context, {before: '\n', after: '\n'})
 
   if (
     result &&
@@ -46,6 +46,7 @@ function toMarkdown(tree, options) {
 }
 
 function invalid(value) {
+  // console.warn('Cannot handle value `' + value )
   throw new Error('Cannot handle value `' + value + '`, expected node')
 }
 
