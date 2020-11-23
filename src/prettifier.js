@@ -14,7 +14,7 @@ function prettifier(
         emphasis = '_',
         rule = '-',
         updateDatesInHeader = true,
-        alwaysCreateHeader = false,
+        createHeaderIfNotPresent: createHeaderIfNotPresent = false,
         lastModifiedAt = undefined,
     } = {}
 ) {
@@ -24,9 +24,9 @@ function prettifier(
 
     result = result.use(frontmatter)
 
-    if (updateDatesInHeader || alwaysCreateHeader) {
+    if (updateDatesInHeader || createHeaderIfNotPresent) {
         result = result.use(table_writer, {
-            alwaysCreateHeader: alwaysCreateHeader,
+            createHeaderIfNotPresent: createHeaderIfNotPresent,
             updateDatesInHeader: updateDatesInHeader,
             lastModifiedAt: lastModifiedAt
         })

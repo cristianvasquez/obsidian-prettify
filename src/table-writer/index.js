@@ -9,7 +9,7 @@ const jsYaml = require('js-yaml');
  * @return {function}
  */
 function metadataWriter({
-                            alwaysCreateHeader = false,
+                            createHeaderIfNotPresent = false,
                             updateDatesInHeader = false,
                             lastModifiedAt = undefined
                         } = {}) {
@@ -24,6 +24,10 @@ function metadataWriter({
                 type: 'yaml',
                 value: '',
             };
+            if (createHeaderIfNotPresent){
+                // The first time a header it's added it comes with a date.
+                lastModifiedAt = new Date().toUTCString()
+            }
         }
 
         let propertiesToUpdate = {}
@@ -34,16 +38,16 @@ function metadataWriter({
         } else if (updateDatesInHeader) {
             // Today's date
             propertiesToUpdate.lastModifiedAt = new Date().toUTCString();
-        } else {
+        } else if (vFile.data.lastModifiedAt) {
             // The date that's on the document
             propertiesToUpdate.lastModifiedAt = vFile.data.lastModifiedAt
         }
 
         // Write metadata (by reference)
-        writeMatter(metadataNode, propertiesToUpdate);
+        metadataNode.value = updatedValue(metadataNode.value, propertiesToUpdate);
 
         // If we don't have a Matter node in the AST, put it in.
-        if (!hasMetadata && alwaysCreateHeader) {
+        if (!hasMetadata && createHeaderIfNotPresent) {
             ast.children.unshift(metadataNode);
         }
 
@@ -60,19 +64,15 @@ function getMetadataNode(ast, types = ['yaml', 'toml']) {
 }
 
 
-function writeMatter(frontmatterNode, meta) {
-    const fm = {};
-
-    // parse any existing frontmatter
-    if (frontmatterNode.value) {
-        Object.assign(fm, jsYaml.safeLoad(frontmatterNode.value));
+function updatedValue(value, meta) {
+    let fm = jsYaml.load(value)
+    if (fm) {
+        Object.assign(fm, meta);
+    } else {
+        fm = meta
     }
-
-    // merge in meta
-    Object.assign(fm, meta);
-
     // stringify
-    frontmatterNode.value = jsYaml.safeDump(fm).trim(); // eslint-disable-line no-param-reassign
+    return jsYaml.dump(fm); // eslint-disable-line no-param-reassign
 }
 
 

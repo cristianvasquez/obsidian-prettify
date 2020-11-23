@@ -1,14 +1,35 @@
 const prettifier = require('../prettifier')
 
-test("Creates a header", () => {
+
+test("Does not create a header", () => {
     const content = `No Header`
     return prettifier(content, {
-        alwaysCreateHeader: true,
+        createHeaderIfNotPresent: false,
         lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
     }).then(data => {
         expect(data).toMatchSnapshot();
     });
 });
+
+test("Creates a header", () => {
+    const content = `No Header`
+    return prettifier(content, {
+        createHeaderIfNotPresent: true,
+        lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
+    }).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});
+
+// test("Creates date first time", () => {
+//     const content = `No Header`
+//     return prettifier(content, {
+//         createHeaderIfNotPresent: true,
+//         updateDatesInHeader: false,
+//     }).then(data => {
+//         expect(data).toMatchSnapshot();
+//     });
+// });
 
 
 test("Maintains properties in header", () => {
@@ -46,7 +67,5 @@ tag: '#Interpretability'
         expect(data).toMatchSnapshot();
     });
 });
-
-
 
 

@@ -4,9 +4,37 @@ exports[`Creates a header 1`] = `
 VFile {
   "contents": "---
 lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
+
 ---
 
 No Header
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Creates date first time 1`] = `
+VFile {
+  "contents": "---
+X
+
+---
+
+No Header
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Does not create a header 1`] = `
+VFile {
+  "contents": "No Header
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
@@ -24,6 +52,7 @@ list:
   - 0
   - false
 lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
+
 ---
 
 # What the Semantic Web ignores
@@ -46,6 +75,7 @@ VFile {
   "contents": "---
 tag: '#Interpretability'
 lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
+
 ---
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
