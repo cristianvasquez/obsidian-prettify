@@ -6,6 +6,8 @@ const frontmatter = require('remark-frontmatter');
 const table_writer = require('./table-writer');
 const stringify = require('./stringify')
 const remark = unified().use(parse).freeze()
+const {NEW_HEADER_TEMPLATE} = require('./constants');
+const moment = require('moment')
 
 function prettifier(
     content,
@@ -13,22 +15,23 @@ function prettifier(
         bullet = '-',
         emphasis = '_',
         rule = '-',
-        updateDatesInHeader = true,
         createHeaderIfNotPresent: createHeaderIfNotPresent = false,
-        lastModifiedAt = undefined,
+        newHeaderTemplate = NEW_HEADER_TEMPLATE,
+        updateHeader = true,
+        currentMoment = moment(),
     } = {}
 ) {
-
     let result = remark()
         .use(gfm)
 
     result = result.use(frontmatter)
 
-    if (updateDatesInHeader || createHeaderIfNotPresent) {
+    if (createHeaderIfNotPresent || updateHeader) {
         result = result.use(table_writer, {
-            createHeaderIfNotPresent: createHeaderIfNotPresent,
-            updateDatesInHeader: updateDatesInHeader,
-            lastModifiedAt: lastModifiedAt
+            createHeaderIfNotPresent:createHeaderIfNotPresent,
+            newHeaderTemplate: newHeaderTemplate,
+            updateHeader: updateHeader,
+            currentMoment: currentMoment
         })
     }
 

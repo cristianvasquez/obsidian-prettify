@@ -1,3 +1,7 @@
+---
+lastModifiedAt: 'Mon, 23 Nov 2020 02:27:54 GMT'
+---
+
 # Markdown prettifier for Obsidian
 
 Tries to fix and reformat ugly Markdown
@@ -76,10 +80,10 @@ After:
 
 ## This plugin uses the following amazing libraries
 
-*   [remark](https://github.com/remarkjs/remark)
-*   [remark-gfm](https://github.com/remarkjs/remark-gfm#readme)
-*   [remark-images](https://github.com/remarkjs/remark-images)
-*   [remark-frontmatter](https://github.com/wooorm/remark-frontmatter)
+-   [remark](https://github.com/remarkjs/remark)
+-   [remark-gfm](https://github.com/remarkjs/remark-gfm#readme)
+-   [remark-images](https://github.com/remarkjs/remark-images)
+-   [remark-frontmatter](https://github.com/wooorm/remark-frontmatter)
 
 ## Screencast
 
@@ -114,6 +118,24 @@ mkdir -p $OBSIDIAN_VAULT_DIR/.obsidian/plugins
 unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plugins
 ```
 
-***
+## Version History
+
+### v0.0.3
+
+Enabled modification date and some settings
+
+Included: [remark-frontmatter](https://github.com/wooorm/remark-frontmatter)
+
+### v0.0.2
+
+Added tests!
+
+Included: [remark-gfm](https://github.com/remarkjs/remark-gfm#readme) and [remark-images](https://github.com/remarkjs/remark-images)
+
+### v0.0.1
+
+Initial Release, just playing around for the first time with Obsidian and the plugins. No settings, Just the minimum possible
+
+---
 
 > if you want, you can send me a coffee :) <https://www.buymeacoffee.com/pelado>

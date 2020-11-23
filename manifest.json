@@ -4,5 +4,5 @@
   "description": "Uses remark-gfm to fix and reformat ugly Markdown.",
   "isDesktopOnly": false,
   "js": "main.js",
-  "version": "0.0.2"
+  "version": "0.0.3"
 }

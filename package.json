@@ -22,6 +22,7 @@
     "markdown-utils": "^1.0.0",
     "mdast-util-definitions": "^4.0.0",
     "mdast-util-to-string": "^1.0.0",
+    "moment": "^2.29.1",
     "npm": "^6.14.8",
     "parse-entities": "^2.0.0",
     "remark-frontmatter": "^3.0.0",

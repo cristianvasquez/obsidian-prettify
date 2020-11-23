@@ -1,11 +1,13 @@
 const prettifier = require('../prettifier')
+const moment =require ('moment')
+const fixed_date = moment('2010-06-09T15:20:00-07:00')
 
 
 test("Does not create a header", () => {
     const content = `No Header`
     return prettifier(content, {
         createHeaderIfNotPresent: false,
-        lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
+        moment:fixed_date
     }).then(data => {
         expect(data).toMatchSnapshot();
     });
@@ -15,22 +17,35 @@ test("Creates a header", () => {
     const content = `No Header`
     return prettifier(content, {
         createHeaderIfNotPresent: true,
-        lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
+        currentMoment:fixed_date
     }).then(data => {
         expect(data).toMatchSnapshot();
     });
 });
 
-// test("Creates date first time", () => {
-//     const content = `No Header`
-//     return prettifier(content, {
-//         createHeaderIfNotPresent: true,
-//         updateDatesInHeader: false,
-//     }).then(data => {
-//         expect(data).toMatchSnapshot();
-//     });
-// });
+test("Creates date first time", () => {
+    const content = `No Header`
+    return prettifier(content, {
+        createHeaderIfNotPresent: true,
+        updateHeader: false,
+        currentMoment:fixed_date
+    }).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});
 
+test("Does not modify date", () => {
+    const content = `---
+date updated: '1999-06-10T00:20:00+02:00'
+
+---`
+    return prettifier(content, {
+        updateHeader: false,
+        moment:fixed_date
+    }).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});
 
 test("Maintains properties in header", () => {
     const content = `---
@@ -49,7 +64,7 @@ In their own language, with their own model of the world.
 perhaps 1% ? of the humans use it for facts?
             `
     return prettifier(content, {
-        lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
+        currentMoment:fixed_date
     }).then(data => {
         expect(data).toMatchSnapshot();
     });
@@ -62,7 +77,7 @@ tag: '#Interpretability'
 ---
             `
     return prettifier(content, {
-        lastModifiedAt: 'Sun, 21 Nov 2020 21:34:48 GMT'
+        currentMoment:fixed_date
     }).then(data => {
         expect(data).toMatchSnapshot();
     });

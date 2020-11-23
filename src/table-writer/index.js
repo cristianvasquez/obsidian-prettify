@@ -1,4 +1,8 @@
 const jsYaml = require('js-yaml');
+const moment = require('moment')
+const {NEW_HEADER_TEMPLATE} = require('../constants');
+const Templates = require('../template')
+const template = new Templates();
 
 /**
  * Returns the transformer which acts on the MDAST tree and given VFile.
@@ -10,45 +14,29 @@ const jsYaml = require('js-yaml');
  */
 function metadataWriter({
                             createHeaderIfNotPresent = false,
-                            updateDatesInHeader = false,
-                            lastModifiedAt = undefined
+                            newHeaderTemplate = NEW_HEADER_TEMPLATE,
+                            updateHeader = false,
+                            currentMoment = moment(),
                         } = {}) {
 
     return function transformer(ast, vFile, next) {
 
         let metadataNode = getMetadataNode(ast);
-
         let hasMetadata = !(metadataNode == null)
-        if (!hasMetadata) {
-            metadataNode = {
-                type: 'yaml',
-                value: '',
-            };
-            if (createHeaderIfNotPresent){
-                // The first time a header it's added it comes with a date.
-                lastModifiedAt = new Date().toUTCString()
-            }
-        }
-
-        let propertiesToUpdate = {}
-
-        if (lastModifiedAt) {
-            // Some date defined by the caller
-            propertiesToUpdate.lastModifiedAt = lastModifiedAt;
-        } else if (updateDatesInHeader) {
-            // Today's date
-            propertiesToUpdate.lastModifiedAt = new Date().toUTCString();
-        } else if (vFile.data.lastModifiedAt) {
-            // The date that's on the document
-            propertiesToUpdate.lastModifiedAt = vFile.data.lastModifiedAt
-        }
-
-        // Write metadata (by reference)
-        metadataNode.value = updatedValue(metadataNode.value, propertiesToUpdate);
 
         // If we don't have a Matter node in the AST, put it in.
         if (!hasMetadata && createHeaderIfNotPresent) {
+            metadataNode = {
+                type: 'yaml',
+                value: jsYaml.dump(getFreshProperties(newHeaderTemplate, currentMoment)),
+            };
             ast.children.unshift(metadataNode);
+            hasMetadata = true
+        }
+
+        if (updateHeader && hasMetadata) {
+            // Write metadata (by reference)
+            metadataNode.value = updatedValue(metadataNode.value, getFreshProperties(newHeaderTemplate, currentMoment));
         }
 
         if (typeof next === 'function') {
@@ -57,6 +45,10 @@ function metadataWriter({
 
         return ast;
     };
+}
+
+function getFreshProperties(newHeaderTemplate, moment) {
+    return jsYaml.load(String(template.replace(newHeaderTemplate, moment)));
 }
 
 function getMetadataNode(ast, types = ['yaml', 'toml']) {
