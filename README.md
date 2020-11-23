@@ -1,7 +1,3 @@
----
-lastModifiedAt: 'Mon, 23 Nov 2020 02:27:54 GMT'
----
-
 # Markdown prettifier for Obsidian
 
 Tries to fix and reformat ugly Markdown and adds things like 'modified date' etc.
