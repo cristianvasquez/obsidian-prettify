@@ -4,11 +4,32 @@ lastModifiedAt: 'Mon, 23 Nov 2020 02:27:54 GMT'
 
 # Markdown prettifier for Obsidian
 
-Tries to fix and reformat ugly Markdown
+Tries to fix and reformat ugly Markdown and adds things like 'modified date' etc.
 
 The default hotkey is `Ctrl+Alt+L`.
 
 ## Examples
+
+### Add a frontmatter
+
+Before:
+
+```markdown
+
+I wrote this, but I don't remember when!
+
+```
+
+After:
+
+```markdown
+---
+date updated: '2020-11-23T16:47:37+01:00'
+---
+
+I wrote this, but I don't remember when!
+
+```
 
 ### Autolink literals
 
@@ -122,7 +143,7 @@ unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plu
 
 ### v0.0.3
 
-Enabled modification date and some settings
+Enabled frontmatter and settings!
 
 Included: [remark-frontmatter](https://github.com/wooorm/remark-frontmatter)
 
