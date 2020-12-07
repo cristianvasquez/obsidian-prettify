@@ -32,3 +32,19 @@ VFile {
   "messages": Array [],
 }
 `;
+
+exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/12 1`] = `
+VFile {
+  "contents": "$$
+egin{bmatrix}
+a && b \\\\
+c && d
+end{bmatrix}
+$$
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;

@@ -102,10 +102,6 @@ After:
 -   [remark-images](https://github.com/remarkjs/remark-images)
 -   [remark-frontmatter](https://github.com/wooorm/remark-frontmatter)
 
-## Screencast
-
-![./img/screen_cast.gif](./img/screen_cast.gif)
-
 ## How to compile the plugin
 
 First, install the dependencies with
@@ -136,6 +132,11 @@ unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plu
 ```
 
 ## Version History
+
+### v.0.0.4
+
+Fixed a bug that escaped \\
+Added some feedback to the user
 
 ### v0.0.3
 

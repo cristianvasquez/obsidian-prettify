@@ -36,4 +36,18 @@ Prettifier:
         });
     });
 
+    test("https://github.com/cristianvasquez/obsidian-prettify/issues/12", () => {
+        const content = `
+$$
+\begin{bmatrix}
+a && b \\
+c && d
+\end{bmatrix}
+$$
+            `
+        return prettifier(content).then(data => {
+            expect(data).toMatchSnapshot();
+        });
+    });
+
 });
