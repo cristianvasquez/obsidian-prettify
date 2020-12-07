@@ -2,7 +2,7 @@ module.exports = toMarkdown
 
 var zwitch = require('zwitch')
 var defaultHandlers = require('./handle')
-var defaultUnsafePatterns = require('./unsafe')
+// var defaultUnsafePatterns = require('./unsafe')
 var defaultJoin = require('./join')
 
 function toMarkdown(tree, options) {
@@ -63,7 +63,7 @@ function configure(settings) {
    * This was the only way I found to disable character escaping
    */
   // var unsafe = defaultUnsafePatterns
-  var unsafe = []
+  // var unsafe = []
 
   var join = defaultJoin
   var handlers = Object.assign({}, defaultHandlers)
@@ -74,12 +74,14 @@ function configure(settings) {
   }
 
   while (++index < extensions.length) {
-    unsafe = unsafe.concat(extensions[index].unsafe || [])
+    // unsafe = unsafe.concat(extensions[index].unsafe || [])
     join = join.concat(extensions[index].join || [])
     Object.assign(handlers, extensions[index].handlers || {})
   }
 
-  return {unsafe: unsafe, join: join, handlers: handlers}
+  //return {unsafe: unsafe, join: join, handlers: handlers}
+  return {unsafe: [], join: join, handlers: handlers}
+
 }
 
 function joinDefinition(left, right) {

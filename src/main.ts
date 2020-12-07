@@ -49,16 +49,11 @@ export default class MarkdownPrettifier extends Plugin {
             // Do work here
             const editor = view.sourceMode.cmEditor;
 
-            let text = editor.getSelection()
-
             // Remember the cursor
             const cursor = editor.getCursor()
 
-            // Nothing selected, fall back to 'select all'.
-            if (text == '') {
-                editor.execCommand('selectAll')
-                text = editor.getSelection()
-            }
+            editor.execCommand('selectAll')
+            let text = editor.getSelection()
 
             prettifier(text, this.settings
             ).then(data => {
@@ -86,6 +81,7 @@ export default class MarkdownPrettifier extends Plugin {
 
                 editor.replaceSelection(String(data), "start")
                 editor.setCursor(cursor)
+
             }).catch((err) => {
                     console.error(err)
                 }

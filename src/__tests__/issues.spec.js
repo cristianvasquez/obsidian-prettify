@@ -36,4 +36,13 @@ Prettifier:
         });
     });
 
+    test("https://github.com/cristianvasquez/obsidian-prettify/issues/12", () => {
+        const content = `
+Please honor backslashes \\
+            `
+        return prettifier(content).then(data => {
+            expect(data).toMatchSnapshot();
+        });
+    });
+
 });
