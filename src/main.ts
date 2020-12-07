@@ -78,7 +78,6 @@ export default class MarkdownPrettifier extends Plugin {
                 } catch (err) {
                     console.error(err)
                 }
-
                 editor.replaceSelection(String(data), "start")
                 editor.setCursor(cursor)
 

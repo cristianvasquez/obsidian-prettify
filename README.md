@@ -133,6 +133,11 @@ unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plu
 
 ## Version History
 
+### v.0.0.4
+
+Fixed a bug that escaped \\
+Added some feedback to the user
+
 ### v0.0.3
 
 Enabled frontmatter and settings!

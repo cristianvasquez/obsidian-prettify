@@ -7,6 +7,8 @@ const table_writer = require('./table-writer');
 const stringify = require('./stringify')
 const remark = unified().use(parse).freeze()
 const {NEW_HEADER_TEMPLATE} = require('./constants');
+const math = require('remark-math')
+const katex = require('rehype-katex')
 const moment = require('moment')
 
 function prettifier(
@@ -36,6 +38,8 @@ function prettifier(
     }
 
     result
+        .use(math)
+        .use(katex)
         .use(images)
         .use(stringify, {
             bullet: bullet,
@@ -44,8 +48,6 @@ function prettifier(
         })
 
     return result.process(content)
-
-
 }
 
 module.exports = prettifier

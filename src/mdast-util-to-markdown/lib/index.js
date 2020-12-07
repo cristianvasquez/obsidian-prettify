@@ -2,7 +2,6 @@ module.exports = toMarkdown
 
 var zwitch = require('zwitch')
 var defaultHandlers = require('./handle')
-// var defaultUnsafePatterns = require('./unsafe')
 var defaultJoin = require('./join')
 
 function toMarkdown(tree, options) {
@@ -46,7 +45,6 @@ function toMarkdown(tree, options) {
 }
 
 function invalid(value) {
-  // console.warn('Cannot handle value `' + value )
   throw new Error('Cannot handle value `' + value + '`, expected node')
 }
 
@@ -59,12 +57,6 @@ function configure(settings) {
     {unsafe: settings.unsafe, handlers: settings.handlers, join: settings.join}
   ].concat(settings.extensions || [])
 
-  /**
-   * This was the only way I found to disable character escaping
-   */
-  // var unsafe = defaultUnsafePatterns
-  // var unsafe = []
-
   var join = defaultJoin
   var handlers = Object.assign({}, defaultHandlers)
   var index = -1
@@ -74,7 +66,6 @@ function configure(settings) {
   }
 
   while (++index < extensions.length) {
-    // unsafe = unsafe.concat(extensions[index].unsafe || [])
     join = join.concat(extensions[index].join || [])
     Object.assign(handlers, extensions[index].handlers || {})
   }
