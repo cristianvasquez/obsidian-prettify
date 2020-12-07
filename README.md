@@ -102,10 +102,6 @@ After:
 -   [remark-images](https://github.com/remarkjs/remark-images)
 -   [remark-frontmatter](https://github.com/wooorm/remark-frontmatter)
 
-## Screencast
-
-![./img/screen_cast.gif](./img/screen_cast.gif)
-
 ## How to compile the plugin
 
 First, install the dependencies with
