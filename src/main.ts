@@ -1,4 +1,4 @@
-import {App, MarkdownView, Plugin, PluginSettingTab, Setting} from "obsidian";
+import {App, MarkdownView, Notice, Plugin, PluginSettingTab, Setting} from "obsidian";
 
 // @ts-ignore
 import Template from './template'
@@ -51,6 +51,9 @@ export default class MarkdownPrettifier extends Plugin {
 
             let text = editor.getSelection()
 
+            // Remember the cursor
+            const cursor = editor.getCursor()
+
             // Nothing selected, fall back to 'select all'.
             if (text == '') {
                 editor.execCommand('selectAll')
@@ -59,7 +62,30 @@ export default class MarkdownPrettifier extends Plugin {
 
             prettifier(text, this.settings
             ).then(data => {
+
+                try {
+                    // Calculate difference of lines and provide feedback
+                    const n_before = String(data).split(/\r\n|\r|\n/).length
+                    const n_after = String(text).split(/\r\n|\r|\n/).length
+                    const lines_changed = n_before - n_after
+                    if (lines_changed != 0) {
+                        if (lines_changed > 0) {
+                            new Notice("Prettifier: added " + lines_changed + " lines.");
+                        } else {
+                            new Notice("Prettifier: removed " + lines_changed + " lines.");
+                        }
+                    }
+                    // Update the cursor
+                    if (cursor.line) {
+                        cursor.line = cursor.line + lines_changed
+                    }
+
+                } catch (err) {
+                    console.error(err)
+                }
+
                 editor.replaceSelection(String(data), "start")
+                editor.setCursor(cursor)
             }).catch((err) => {
                     console.error(err)
                 }
