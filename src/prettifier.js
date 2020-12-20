@@ -17,6 +17,8 @@ function prettifier(
         bullet = '-',
         emphasis = '_',
         rule = '-',
+        listItemIndent = 'one', // one, mixed, tab
+
         createHeaderIfNotPresent: createHeaderIfNotPresent = false,
         newHeaderTemplate = NEW_HEADER_TEMPLATE,
         updateHeader = true,
@@ -30,7 +32,7 @@ function prettifier(
 
     if (createHeaderIfNotPresent || updateHeader) {
         result = result.use(table_writer, {
-            createHeaderIfNotPresent:createHeaderIfNotPresent,
+            createHeaderIfNotPresent: createHeaderIfNotPresent,
             newHeaderTemplate: newHeaderTemplate,
             updateHeader: updateHeader,
             currentMoment: currentMoment
@@ -44,7 +46,8 @@ function prettifier(
         .use(stringify, {
             bullet: bullet,
             emphasis: emphasis,
-            rule: rule
+            rule: rule,
+            listItemIndent: listItemIndent
         })
 
     return result.process(content)
