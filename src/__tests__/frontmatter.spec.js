@@ -83,4 +83,15 @@ tag: '#Interpretability'
     });
 });
 
-
+test("Respects emojis", () => {
+    const content = `---
+tag: '#🦐'
+---
+🦐
+            `
+    return prettifier(content, {
+        currentMoment:fixed_date
+    }).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});

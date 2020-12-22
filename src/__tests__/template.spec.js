@@ -59,3 +59,13 @@ it("Check for valid YAML", () => {
 });
 
 
+it("Respect emojis", () => {
+    const input = `---
+Name: 🦐 
+---`;
+    const expectedOuput = `---
+Name: 🦐 
+---`;
+    const data = template.replace(input, one_day_in_the_past)
+    expect(data).toBe(expectedOuput);
+});

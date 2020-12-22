@@ -5,7 +5,7 @@
   "bugs": {
     "url": "https://github.com/cristianvasquez/obsidian-prettify/issues"
   },
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Prettifies your markdown!",
   "main": "index.js",
   "scripts": {
@@ -35,10 +35,12 @@
     "remark-wiki-link": "^1.0.0",
     "repeat-string": "^1.0.0",
     "unified": "^9.2.0",
-    "yaml": "^2.0.0-1",
+    "yaml": "1.10.0",
     "zwitch": "^1.0.0"
   },
   "devDependencies": {
+    "remark": "^13.0.0",
+
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",

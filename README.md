@@ -133,6 +133,11 @@ unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plu
 
 ## Version History
 
+### v.0.0.5
+
+Added indent for lists
+Sets settings as recommended
+
 ### v.0.0.4
 
 Fixed a bug that escaped \\
@@ -156,4 +161,6 @@ Initial Release, just playing around for the first time with Obsidian and the pl
 
 ---
 
-> if you want, you can send me a coffee :) <https://www.buymeacoffee.com/pelado>
+Pull requests are both welcome and appreciated. :)
+
+> if you want, you can also send me a coffee <https://www.buymeacoffee.com/pelado>

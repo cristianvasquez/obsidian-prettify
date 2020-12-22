@@ -114,3 +114,26 @@ https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg
 });
 
 
+test("Indent size", () => {
+    const content = `
+- foo
+-  foo
+-   foo
+-  foo
+            `
+    return prettifier(content,{listItemIndent:'one'}).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});
+
+test("Indent size", () => {
+    const content = `
+- foo
+-  foo
+-   foo
+-  foo
+            `
+    return prettifier(content,{listItemIndent:'tab'}).then(data => {
+        expect(data).toMatchSnapshot();
+    });
+});

@@ -3,7 +3,7 @@ const unified = require('unified')
 const parse = require('remark-parse')
 const images = require('remark-images')
 const frontmatter = require('remark-frontmatter');
-const table_writer = require('./table-writer');
+const frontmatter_writer = require('./frontmatter-writer');
 const stringify = require('./stringify')
 const remark = unified().use(parse).freeze()
 const {NEW_HEADER_TEMPLATE} = require('./constants');
@@ -28,15 +28,15 @@ function prettifier(
     let result = remark()
         .use(gfm)
 
-    result = result.use(frontmatter)
-
     if (createHeaderIfNotPresent || updateHeader) {
-        result = result.use(table_writer, {
-            createHeaderIfNotPresent: createHeaderIfNotPresent,
-            newHeaderTemplate: newHeaderTemplate,
-            updateHeader: updateHeader,
-            currentMoment: currentMoment
-        })
+        result = result
+            .use(frontmatter)
+            .use(frontmatter_writer, {
+                createHeaderIfNotPresent: createHeaderIfNotPresent,
+                newHeaderTemplate: newHeaderTemplate,
+                updateHeader: updateHeader,
+                currentMoment: currentMoment
+            })
     }
 
     result
