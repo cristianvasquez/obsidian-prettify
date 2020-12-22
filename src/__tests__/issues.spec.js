@@ -50,4 +50,45 @@ $$
         });
     });
 
+    test("https://github.com/cristianvasquez/obsidian-prettify/issues/19", () => {
+        const content = `
+- X
+    *   Tab
+- X
+    * Tab
+- X
+  * 2 spaces
+- X
+   * 3 spaces
+- X
+    * 4 Spaces
+            `
+        return prettifier(content,{
+            listItemIndent:'one'
+        }).then(data => {
+            expect(data).toMatchSnapshot();
+        });
+    });
+
+    test("https://github.com/cristianvasquez/obsidian-prettify/issues/19", () => {
+        const content = `
+- X
+    *   Tab
+- X
+    * Tab
+- X
+  * 2 spaces
+- X
+   * 3 spaces
+- X
+    * 4 Spaces
+            `
+        return prettifier(content,{
+            listItemIndent:'tab'
+        }).then(data => {
+            expect(data).toMatchSnapshot();
+        });
+    });
+
+
 });

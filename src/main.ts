@@ -12,6 +12,28 @@ import prettifier from "./prettifier"
 
 import {NEW_HEADER_TEMPLATE} from './constants'
 
+
+interface MarkdownPrettifierSettings {
+    bullet: string;
+    emphasis: string;
+    rule: string;
+    createHeaderIfNotPresent: boolean;
+    updateHeader: boolean;
+    newHeaderTemplate: string;
+    listItemIndentSize: string
+}
+
+const DEFAULT_SETTINGS: MarkdownPrettifierSettings = {
+    bullet: '-', // ('*', '+', or '-', default: '*'). Marker to use to for bullets of items in unordered lists
+    emphasis: '_', // ('*' or '_', default: '*'). Marker to use to serialize emphasis
+    rule: '-', // ('*', '-', or '_', default: '*'). Marker to use for thematic breaks
+    createHeaderIfNotPresent: true,
+    updateHeader: true,
+    newHeaderTemplate: NEW_HEADER_TEMPLATE,
+    listItemIndent: 'one'
+}
+
+
 export default class MarkdownPrettifier extends Plugin {
 
     // This field stores your plugin settings.
@@ -20,10 +42,19 @@ export default class MarkdownPrettifier extends Plugin {
     onInit() {
     }
 
+    async loadSettings() {
+        this.settings = Object.assign(DEFAULT_SETTINGS, await this.loadData());
+    }
+
+    async saveSettings() {
+        await this.saveData(this.settings);
+    }
+
     async onload() {
         console.log("Loading Markdown-Prettifier");
 
-        this.settings = (await this.loadData()) || new MarkdownPrettifierSettings();
+        await this.loadSettings();
+
         this.addSettingTab(new MarkdownPrettifierSettingsTab(this.app, this));
 
         this.addCommand({
@@ -90,19 +121,6 @@ export default class MarkdownPrettifier extends Plugin {
     }
 }
 
-/**
- * This is a data class that contains your plugin configurations. You can edit it
- * as you wish by adding fields and all the data you need.
- */
-
-class MarkdownPrettifierSettings {
-    bullet = '-'; // ('*', '+', or '-', default: '*'). Marker to use to for bullets of items in unordered lists
-    emphasis = '_'; // ('*' or '_', default: '*'). Marker to use to serialize emphasis
-    rule = '-'; // ('*', '-', or '_', default: '*'). Marker to use for thematic breaks
-    createHeaderIfNotPresent = true;
-    updateHeader = true;
-    newHeaderTemplate = NEW_HEADER_TEMPLATE
-}
 
 class MarkdownPrettifierSettingsTab extends PluginSettingTab {
     plugin: MarkdownPrettifier;
@@ -115,16 +133,9 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
 
     display(): void {
         const {containerEl} = this;
-        const settings = this.plugin.settings;
+        containerEl.empty();
 
-        /**
-         * I don't know yet how to tame this frontend animal.
-         * @TODO findout what's the name of this framework.
-         */
-        containerEl.findAll('div')
-            .forEach((leaf) => leaf.detach());
-        containerEl.findAll('h3')
-            .forEach((leaf) => leaf.detach());
+        const settings = this.plugin.settings;
 
         this.containerEl.createEl("h3", {
             text: "Prettyfication Settings",
@@ -135,14 +146,29 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
             .setName("bullet")
             .setDesc("Marker to use to for bullets of items in unordered lists")
             .addDropdown((dropdown) => {
-                    dropdown.setValue(this.plugin.settings.bullet);
                     dropdown.addOption("*", "* item");
                     dropdown.addOption("+", "+ item");
                     dropdown.addOption("-", "- item");
-                    dropdown.setValue(String(settings.bullet)).onChange((value) => {
-                        settings.bullet = value;
-                        this.plugin.saveData(settings);
-                    })
+                    dropdown.setValue(String(settings.bullet))
+                        .onChange(async (value) => {
+                            this.plugin.settings.bullet = value;
+                            await this.plugin.saveSettings();
+                        })
+                }
+            );
+
+        new Setting(containerEl)
+            .setName("List indent")
+            .setDesc("Whether to use one space or tab to indent lists")
+            .addDropdown((dropdown) => {
+                    dropdown.addOption('one', "one space");
+                    dropdown.addOption('mixed', "mixed");
+                    dropdown.addOption('tab', "tab");
+                    dropdown.setValue(String(this.plugin.settings.listItemIndentSize))
+                        .onChange(async (value) => {
+                            this.plugin.settings.listItemIndentSize = value;
+                            await this.plugin.saveSettings();
+                        })
                 }
             );
 
@@ -154,9 +180,9 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
                     dropdown.setValue(this.plugin.settings.emphasis);
                     dropdown.addOption("*", "*emphasis*");
                     dropdown.addOption("_", "_emphasis_");
-                    dropdown.setValue(String(settings.emphasis)).onChange((value) => {
-                        settings.emphasis = value;
-                        this.plugin.saveData(settings);
+                    dropdown.setValue(String(settings.emphasis)).onChange(async (value) => {
+                        this.plugin.settings.emphasis = value;
+                        await this.plugin.saveSettings();
                     })
                 }
             );
@@ -170,9 +196,9 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
                     dropdown.addOption("*", "***");
                     dropdown.addOption("-", "---");
                     dropdown.addOption("_", "___");
-                    dropdown.setValue(String(settings.rule)).onChange((value) => {
-                        settings.rule = value;
-                        this.plugin.saveData(settings);
+                    dropdown.setValue(String(settings.rule)).onChange(async (value) => {
+                        this.plugin.settings.rule = value;
+                        await this.plugin.saveSettings();
                     })
                 }
             );
@@ -188,8 +214,8 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
             .addToggle((toggle) => {
                 toggle.setValue(this.plugin.settings.createHeaderIfNotPresent);
                 toggle.onChange(async (value) => {
-                    settings.createHeaderIfNotPresent = value;
-                    this.plugin.saveData(settings);
+                    this.plugin.settings.createHeaderIfNotPresent = value;
+                    await this.plugin.saveSettings();
                 });
             });
 
@@ -200,14 +226,13 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
                 text
                     // .setPlaceholder("Example: {{date:YYYYMMDDHHmm}}-")
                     .setValue(this.plugin.settings.newHeaderTemplate || '')
-                    .onChange((value) => {
+                    .onChange(async (value) => {
                         this.plugin.settings.newHeaderTemplate = value;
                         this.updateTemplateExample();
 
                         if (new Template().isValidYaml(this.plugin.settings.newHeaderTemplate)) {
-                            this.plugin.saveData(this.plugin.settings);
+                            await this.plugin.saveSettings();
                         }
-
 
                     });
                 text.inputEl.rows = 8;
@@ -220,8 +245,8 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
             .addToggle((toggle) => {
                 toggle.setValue(this.plugin.settings.updateHeader);
                 toggle.onChange(async (value) => {
-                    settings.updateHeader = value;
-                    this.plugin.saveData(settings);
+                    this.plugin.settings.updateHeader = value;
+                    await this.plugin.saveSettings();
                 });
             });
 

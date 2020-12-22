@@ -6,7 +6,7 @@ VFile {
 
 Prettifier:
 
--   [ ] Don't break my TODO
+- [ ] Don't break my TODO
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
@@ -19,12 +19,12 @@ exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/1 2`
 VFile {
   "contents": "# issues/1
 
-1.  fjlkefjl
-    1.  feafe
-2.  feafea
-3.  feaf
-    1.  fea
-4.  fefe
+1. fjlkefjl
+   1. feafe
+2. feafea
+3. feaf
+   1. fea
+4. fefe
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
@@ -41,6 +41,57 @@ a && b \\\\
 c && d
 end{bmatrix}
 $$
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/19 1`] = `
+VFile {
+  "contents": "- X
+  - Tab
+- X
+  - Tab
+- X
+  - 2 spaces
+- X
+  - 3 spaces
+- X
+  - 4 Spaces
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/19 2`] = `
+VFile {
+  "contents": "-   X
+    -   Tab
+-   X
+    -   Tab
+-   X
+    -   2 spaces
+-   X
+    -   3 spaces
+-   X
+    -   4 Spaces
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/20 1`] = `
+VFile {
+  "contents": "[[ link | alias]]
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},

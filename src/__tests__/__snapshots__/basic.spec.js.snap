@@ -16,18 +16,18 @@ VFile {
 
 exports[`Basic functionality: alternating keeps information of different codification 1`] = `
 VFile {
-  "contents": "*   a
-*   b
-    *   c
+  "contents": "* a
+* b
+  * c
+
+  <!---->
+
+  * d
+    * e
 
     <!---->
 
-    *   d
-        *   e
-
-        <!---->
-
-        *   f
+    * f
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
@@ -50,14 +50,14 @@ VFile {
 
 exports[`Basic functionality: enumerate lists 1`] = `
 VFile {
-  "contents": "1.  foo
+  "contents": "1. foo
 
 a. aaa
 b. bbb
 c. ccc
 
-1.  bar
-2.  baz
+1. bar
+2. baz
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
@@ -68,12 +68,12 @@ c. ccc
 
 exports[`Basic functionality: enumerate lists 2`] = `
 VFile {
-  "contents": "1.  foo
-    1.  aaa
-    2.  bbb
-    3.  ccc
-2.  bar
-3.  baz
+  "contents": "1. foo
+   1. aaa
+   2. bbb
+   3. ccc
+2. bar
+3. baz
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
@@ -84,12 +84,12 @@ VFile {
 
 exports[`Basic functionality: lists use * bullets 1`] = `
 VFile {
-  "contents": "*   a
-*   b
-    *   c
-    *   d
-        *   e
-        *   f
+  "contents": "* a
+* b
+  * c
+  * d
+    * e
+    * f
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
@@ -100,12 +100,12 @@ VFile {
 
 exports[`Basic functionality: lists use - bullets 1`] = `
 VFile {
-  "contents": "-   a
--   b
-    -   c
-    -   d
-        -   e
-        -   f
+  "contents": "- a
+- b
+  - c
+  - d
+    - e
+    - f
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
@@ -128,6 +128,34 @@ VFile {
 exports[`Embed youtube 1`] = `
 VFile {
   "contents": "<https://www.youtube.com/watch?v=B6rKUf9DWRI>
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Indent size 1`] = `
+VFile {
+  "contents": "- foo
+- foo
+- foo
+- foo
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Indent size 2`] = `
+VFile {
+  "contents": "-   foo
+-   foo
+-   foo
+-   foo
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
