@@ -5,7 +5,7 @@
   "bugs": {
     "url": "https://github.com/cristianvasquez/obsidian-prettify/issues"
   },
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Prettifies your markdown!",
   "main": "index.js",
   "scripts": {

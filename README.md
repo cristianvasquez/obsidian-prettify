@@ -133,6 +133,10 @@ unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plu
 
 ## Version History
 
+### v.0.0.6
+
+Fixed frontmatter bug
+
 ### v.0.0.5
 
 Added indent for lists

@@ -27,10 +27,10 @@ function prettifier(
 ) {
     let result = remark()
         .use(gfm)
+        .use(frontmatter)
 
     if (createHeaderIfNotPresent || updateHeader) {
         result = result
-            .use(frontmatter)
             .use(frontmatter_writer, {
                 createHeaderIfNotPresent: createHeaderIfNotPresent,
                 newHeaderTemplate: newHeaderTemplate,

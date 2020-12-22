@@ -20,7 +20,7 @@ interface MarkdownPrettifierSettings {
     createHeaderIfNotPresent: boolean;
     updateHeader: boolean;
     newHeaderTemplate: string;
-    listItemIndentSize: string
+    listItemIndent: string
 }
 
 const DEFAULT_SETTINGS: MarkdownPrettifierSettings = {
@@ -164,9 +164,9 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
                     dropdown.addOption('one', "one space");
                     dropdown.addOption('mixed', "mixed");
                     dropdown.addOption('tab', "tab");
-                    dropdown.setValue(String(this.plugin.settings.listItemIndentSize))
+                    dropdown.setValue(String(this.plugin.settings.listItemIndent))
                         .onChange(async (value) => {
-                            this.plugin.settings.listItemIndentSize = value;
+                            this.plugin.settings.listItemIndent = value;
                             await this.plugin.saveSettings();
                         })
                 }
