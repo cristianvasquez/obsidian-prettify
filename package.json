@@ -28,7 +28,8 @@
     "remark-images": "^2.0.0",
     "remark-parse": "^9.0.0",
     "unified": "^9.2.0",
-    "js-yaml": "git://github.com/nodeca/js-yaml.git#dev"
+    "js-yaml": "git://github.com/nodeca/js-yaml.git#dev",
+    "zwitch": "^1.0.5"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^15.1.0",

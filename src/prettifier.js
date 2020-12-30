@@ -10,16 +10,10 @@ const katex = require('rehype-katex')
 const moment = require('moment')
 
 const remarkParse = require('remark-parse')
-const remark = unified().use(remarkParse, {
-    commonmark: true
-}).freeze()
-
-
-//
-// .use(remarkParse, {
-//     commonmark: true,
-//     ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] }),
-// })
+const remark = unified()
+    .use(remarkParse, {
+        commonmark: true
+    }).freeze()
 
 function prettifier(
     content,
@@ -32,8 +26,8 @@ function prettifier(
         createHeaderIfNotPresent: createHeaderIfNotPresent = false,
         newHeaderTemplate = NEW_HEADER_TEMPLATE,
         updateHeader = true,
-        currentMoment = moment(),
-    } = {}
+    } = {},
+    frontMatterData = {today: moment(), tags: []}
 ) {
     let result = remark()
         .use(gfm)
@@ -45,7 +39,7 @@ function prettifier(
                 createHeaderIfNotPresent: createHeaderIfNotPresent,
                 newHeaderTemplate: newHeaderTemplate,
                 updateHeader: updateHeader,
-                currentMoment: currentMoment
+                frontMatterData: frontMatterData
             })
     }
 

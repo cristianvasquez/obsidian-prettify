@@ -69,3 +69,18 @@ Name: 🦐
     const data = template.replace(input, one_day_in_the_past)
     expect(data).toBe(expectedOuput);
 });
+
+
+it("Finds hashtags", () => {
+    const input = `
+    ## Hello
+    #ble
+    #bla_bla####
+    #ble\Blu
+    #ble/bla/blo #blex#blix
+    #
+    `;
+
+    const data = template.findHashtags(input)
+    expect(data).toEqual(['#ble', '#bla_bla####', '#bleBlu', '#ble/bla/blo', '#blex#blix']);
+});

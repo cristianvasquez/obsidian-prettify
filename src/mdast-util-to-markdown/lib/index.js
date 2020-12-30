@@ -1,3 +1,6 @@
+/**
+ * Code from mdast-util-to-markdown
+ */
 module.exports = toMarkdown
 
 var defaultHandlers = require('./handle')

@@ -4,6 +4,7 @@ import {App, MarkdownView, Notice, Plugin, PluginSettingTab, Setting} from "obsi
 import Template from './template'
 // @ts-ignore
 import moment from 'moment'
+
 /**
  * Being developed at: https://github.com/cristianvasquez/obsidian-prettify/projects/1
  */
@@ -58,13 +59,25 @@ export default class MarkdownPrettifier extends Plugin {
         this.addSettingTab(new MarkdownPrettifierSettingsTab(this.app, this));
 
         this.addCommand({
-            id: "markdown-prettifier",
+            id: "markdown-prettifier-run",
             name: "Run",
             callback: () => this.runPrettifier(),
             hotkeys: [
                 {
                     modifiers: ["Mod", "Alt"],
                     key: "l",
+                },
+            ],
+        });
+
+        this.addCommand({
+            id: "markdown-prettifier-update-fields",
+            name: "Update fields",
+            callback: () => this.updateMatters(),
+            hotkeys: [
+                {
+                    modifiers: ["Mod", "Alt"],
+                    key: "o",
                 },
             ],
         });
@@ -86,7 +99,7 @@ export default class MarkdownPrettifier extends Plugin {
             editor.execCommand('selectAll')
             let text = editor.getSelection()
 
-            prettifier(text, this.settings
+            prettifier(text, this.settings, {today: moment(), tags: []}
             ).then(data => {
 
                 try {
@@ -114,6 +127,42 @@ export default class MarkdownPrettifier extends Plugin {
 
             }).catch((err) => {
                     console.error(err)
+                    if (err.message) {
+                        new Notice(err.message);
+                    }
+                }
+            );
+
+        }
+    }
+
+    updateMatters() {
+        const view = this.app.workspace.activeLeaf.view;
+        if (view instanceof MarkdownView) {
+            // Do work here
+            const editor = view.sourceMode.cmEditor;
+
+            // Remember the cursor
+            const cursor = editor.getCursor()
+
+            editor.execCommand('selectAll')
+            let text = editor.getSelection()
+
+            let frontMatterData = {
+                today: moment(),
+                tags: new Template().findHashtags(text)
+            }
+
+            prettifier(text, this.settings, frontMatterData
+            ).then(data => {
+                editor.replaceSelection(String(data), "start")
+                editor.setCursor(cursor)
+                new Notice('Updated tags');
+            }).catch((err) => {
+                    console.error(err)
+                    if (err.message) {
+                        new Notice(err.message);
+                    }
                 }
             );
 
