@@ -1,6 +1,5 @@
 module.exports = toMarkdown
 
-var zwitch = require('zwitch')
 var defaultHandlers = require('./handle')
 var defaultJoin = require('./join')
 
@@ -80,4 +79,29 @@ function joinDefinition(left, right) {
   if (left.type === 'definition' && left.type === right.type) {
     return 0
   }
+}
+
+
+// Handle values based on a property.
+function zwitch(key, options) {
+  var noop = Function.prototype
+  var own = {}.hasOwnProperty
+  var settings = options || {}
+
+  function one(value) {
+    var fn = one.invalid
+    var handlers = one.handlers
+
+    if (value && own.call(value, key)) {
+      fn = own.call(handlers, value[key]) ? handlers[value[key]] : one.unknown
+    }
+
+    return (fn || noop).apply(this, arguments)
+  }
+
+  one.handlers = settings.handlers || {}
+  one.invalid = settings.invalid
+  one.unknown = settings.unknown
+
+  return one
 }

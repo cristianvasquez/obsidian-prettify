@@ -121,7 +121,7 @@ test("Indent size", () => {
 -   foo
 -  foo
             `
-    return prettifier(content,{listItemIndent:'one'}).then(data => {
+    return prettifier(content, {listItemIndent: 'one'}).then(data => {
         expect(data).toMatchSnapshot();
     });
 });
@@ -133,7 +133,7 @@ test("Indent size", () => {
 -   foo
 -  foo
             `
-    return prettifier(content,{listItemIndent:'tab'}).then(data => {
+    return prettifier(content, {listItemIndent: 'tab'}).then(data => {
         expect(data).toMatchSnapshot();
     });
 });

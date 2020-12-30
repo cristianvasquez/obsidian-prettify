@@ -1,15 +1,25 @@
 const gfm = require('remark-gfm')
 const unified = require('unified')
-const parse = require('remark-parse')
 const images = require('remark-images')
 const frontmatter = require('remark-frontmatter');
 const frontmatter_writer = require('./frontmatter-writer');
 const stringify = require('./stringify')
-const remark = unified().use(parse).freeze()
 const {NEW_HEADER_TEMPLATE} = require('./constants');
 const math = require('remark-math')
 const katex = require('rehype-katex')
 const moment = require('moment')
+
+const remarkParse = require('remark-parse')
+const remark = unified().use(remarkParse, {
+    commonmark: true
+}).freeze()
+
+
+//
+// .use(remarkParse, {
+//     commonmark: true,
+//     ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] }),
+// })
 
 function prettifier(
     content,
