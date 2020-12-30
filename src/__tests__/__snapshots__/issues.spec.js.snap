@@ -88,14 +88,3 @@ VFile {
   "messages": Array [],
 }
 `;
-
-exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/20 1`] = `
-VFile {
-  "contents": "[[ link | alias]]
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
-`;

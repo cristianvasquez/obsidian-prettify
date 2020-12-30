@@ -2,6 +2,7 @@
   "name": "obsidian-obsidian-prettify",
   "author": "Cristian",
   "license": "GPL-3.0-or-later",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/cristianvasquez/obsidian-prettify/issues"
   },
@@ -10,7 +11,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "rollup --config rollup.config.js -w",
-    "build": "rollup --config rollup.config.js"
+    "build": "rollup --config rollup.config.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -18,34 +20,22 @@
   },
   "dependencies": {
     "@types/unist": "^2.0.0",
-    "longest-streak": "^2.0.0",
-    "markdown-utils": "^1.0.0",
-    "mdast-util-definitions": "^4.0.0",
-    "mdast-util-to-string": "^1.0.0",
     "moment": "^2.29.1",
-    "npm": "^6.14.8",
-    "parse-entities": "^2.0.0",
     "rehype-katex": "^4.0.0",
     "remark-frontmatter": "^3.0.0",
     "remark-gfm": "^1.0.0",
-    "remark-images": "^2.0.0",
     "remark-math": "^4.0.0",
-    "remark-metadata": "^0.2.1",
+    "remark-images": "^2.0.0",
     "remark-parse": "^9.0.0",
-    "remark-wiki-link": "^1.0.0",
-    "repeat-string": "^1.0.0",
     "unified": "^9.2.0",
-    "yaml": "1.10.0",
-    "zwitch": "^1.0.0"
+    "js-yaml": "git://github.com/nodeca/js-yaml.git#dev",
+    "zwitch": "^1.0.5"
   },
   "devDependencies": {
-    "remark": "^13.0.0",
-
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@rollup/plugin-typescript": "^6.0.0",
-    "@types/node": "^14.14.2",
     "jest": "^26.0.1",
     "obsidian": "https://github.com/obsidianmd/obsidian-api/tarball/master",
     "rollup": "^2.32.1",

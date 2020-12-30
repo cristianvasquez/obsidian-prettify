@@ -8,6 +8,7 @@ function stringify(options) {
     const self = this;
 
     this.Compiler = compile
+
     function compile(tree) {
         return toMarkdown(
             tree,
