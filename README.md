@@ -6,7 +6,31 @@ The default hotkey is `Ctrl+Alt+L`.
 
 ## Examples
 
-### Add a frontmatter
+### Hashtags janitor
+
+Say you have:
+
+```markdown
+
+A #new and #exciting paragraph!
+```
+
+After 'Update fields':
+
+```markdown
+---
+tags:
+    - '#new'
+    - '#exciting'
+
+---
+
+A #new and #exciting paragraph!
+
+
+```
+
+### Update values in the frontmatter
 
 Before:
 
@@ -132,6 +156,11 @@ unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plu
 ```
 
 ## Version History
+
+### v.0.0.7
+
+- New Refactor tags functionality (ctrl+shift+o)
+- Can add emoticons as tags
 
 ### v.0.0.6
 

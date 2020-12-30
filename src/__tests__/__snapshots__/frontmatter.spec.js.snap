@@ -1,5 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Add quotes 1`] = `
+VFile {
+  "contents": "---
+Name:
+  - '#Hello'
+  - World
+  - ' #Hi'
+  - '#with/tab'
+  - '#with/tab/teb/tib'
+  - '#howdy_bla'
+  - '#howdy-bla'
+Other tag: '#Nothing'
+tags:
+  - '#Nothing'
+date updated: '2010-06-10T00:20:00+02:00'
+
+---
+
+Outside frontmatter
+
+#tag
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Adds tags 1`] = `
+VFile {
+  "contents": "---
+Name:
+  - '#Hi'
+date updated: '2010-06-10T00:20:00+02:00'
+tags:
+  - '#hello'
+  - '#world'
+
+---
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
 exports[`Creates a header 1`] = `
 VFile {
   "contents": "---
@@ -46,7 +94,6 @@ VFile {
 exports[`Does not modify date 1`] = `
 VFile {
   "contents": "---
-
 date updated: '1999-06-10T00:20:00+02:00'
 
 ---
@@ -85,13 +132,49 @@ perhaps 1% ? of the humans use it for facts?
 }
 `;
 
-exports[`Respects emojis 1`] = `
+exports[`Preserve previous tags 1`] = `
 VFile {
   "contents": "---
-tag: \\"#\\\\U0001F990\\"
+tags:
+  - '#preserve_me'
+  - '#hello'
+  - '#world'
 date updated: '2010-06-10T00:20:00+02:00'
 
 ---
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Preserve previous tags 2`] = `
+VFile {
+  "contents": "---
+date updated: '2010-06-10T00:20:00+02:00'
+tags:
+  - '#literatura'
+
+---
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`Respects emojis 1`] = `
+VFile {
+  "contents": "---
+tag: '#🦐'
+date updated: '2010-06-10T00:20:00+02:00'
+
+---
+
+🦐
 ",
   "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
   "data": Object {},
@@ -105,6 +188,21 @@ VFile {
   "contents": "---
 tag: '#Interpretability'
 date updated: '2010-06-10T00:20:00+02:00'
+
+---
+",
+  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
+  "data": Object {},
+  "history": Array [],
+  "messages": Array [],
+}
+`;
+
+exports[`add quote 1`] = `
+VFile {
+  "contents": "---
+tag: '#hello'
+date updated: '{{date:YYYY-MM-DDTHH:mm:ssZ}}'
 
 ---
 ",

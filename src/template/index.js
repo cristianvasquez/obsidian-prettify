@@ -6,11 +6,24 @@ const jsYaml = require('js-yaml');
  */
 const index = class Templates {
 
+
+    findHashtags(searchText) {
+        return searchText.split(/\s/gm).filter((s) => {
+            if (s === '#') {
+                return false;
+            }
+            if (s.startsWith('##')) {
+                return false;
+            }
+            return (s.startsWith('#'))
+        })
+    }
+
     isValidYaml(input) {
-        try{
+        try {
             jsYaml.dump(jsYaml.load(String(input)))
             return true
-        } catch (error){
+        } catch (error) {
             return false
         }
     }
