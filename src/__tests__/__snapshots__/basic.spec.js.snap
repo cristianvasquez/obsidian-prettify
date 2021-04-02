@@ -1,22 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Basic functionality: a formatted table 1`] = `
-VFile {
-  "contents": "| **A** | **B** | **C** |
+"| **A** | **B** | **C** |
 | ----: | :---- | ----- |
 |     a | b     | c     |
 |     x | y     | z     |
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Basic functionality: alternating keeps information of different codification 1`] = `
-VFile {
-  "contents": "* a
+"* a
 * b
   * c
 
@@ -28,29 +21,17 @@ VFile {
     <!---->
 
     * f
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Basic functionality: dont break obsidian links 1`] = `
-VFile {
-  "contents": "[[respect this]]
+"[[respect this]]
 [[and this]][[also this]]
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Basic functionality: enumerate lists 1`] = `
-VFile {
-  "contents": "1. foo
+"1. foo
 
 a. aaa
 b. bbb
@@ -58,108 +39,61 @@ c. ccc
 
 1. bar
 2. baz
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Basic functionality: enumerate lists 2`] = `
-VFile {
-  "contents": "1. foo
+"1. foo
    1. aaa
    2. bbb
    3. ccc
 2. bar
 3. baz
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Basic functionality: lists use * bullets 1`] = `
-VFile {
-  "contents": "* a
+"* a
 * b
   * c
   * d
     * e
     * f
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Basic functionality: lists use - bullets 1`] = `
-VFile {
-  "contents": "- a
+"- a
 - b
   - c
   - d
     - e
     - f
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Embed image 1`] = `
-VFile {
-  "contents": "[![](https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg)](https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg)
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"[![](https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg)](https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg)
+"
 `;
 
 exports[`Embed youtube 1`] = `
-VFile {
-  "contents": "<https://www.youtube.com/watch?v=B6rKUf9DWRI>
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"<https://www.youtube.com/watch?v=B6rKUf9DWRI>
+"
 `;
 
 exports[`Indent size 1`] = `
-VFile {
-  "contents": "- foo
+"- foo
 - foo
 - foo
 - foo
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Indent size 2`] = `
-VFile {
-  "contents": "-   foo
+"-   foo
 -   foo
 -   foo
 -   foo
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;

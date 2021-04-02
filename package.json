@@ -12,7 +12,9 @@
   "scripts": {
     "dev": "rollup --config rollup.config.js -w",
     "build": "rollup --config rollup.config.js",
-    "test": "jest"
+    "test": "jest",
+    "test-update": "jest --updateSnapshot"
+
   },
   "repository": {
     "type": "git",
@@ -20,15 +22,16 @@
   },
   "dependencies": {
     "@types/unist": "^2.0.0",
+    "global": "^4.4.0",
+    "js-yaml": "^4.0.0",
     "moment": "^2.29.1",
     "rehype-katex": "^4.0.0",
     "remark-frontmatter": "^3.0.0",
     "remark-gfm": "^1.0.0",
-    "remark-math": "^4.0.0",
     "remark-images": "^2.0.0",
+    "remark-math": "^4.0.0",
     "remark-parse": "^9.0.0",
     "unified": "^9.2.0",
-    "js-yaml": "git://github.com/nodeca/js-yaml.git#dev",
     "zwitch": "^1.0.5"
   },
   "devDependencies": {
@@ -36,7 +39,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@rollup/plugin-typescript": "^6.0.0",
-    "jest": "^26.0.1",
+    "jest": "^26.6.3",
     "obsidian": "https://github.com/obsidianmd/obsidian-api/tarball/master",
     "rollup": "^2.32.1",
     "rollup-plugin-babel": "^4.4.0",

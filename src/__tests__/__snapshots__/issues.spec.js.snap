@@ -1,23 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/1 1`] = `
-VFile {
-  "contents": "# issues/1
+"# issues/1
 
 Prettifier:
 
 - [ ] Don't break my TODO
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/1 2`] = `
-VFile {
-  "contents": "# issues/1
+"# issues/1
 
 1. fjlkefjl
    1. feafe
@@ -25,33 +18,21 @@ VFile {
 3. feaf
    1. fea
 4. fefe
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/12 1`] = `
-VFile {
-  "contents": "$$
+"$$
 egin{bmatrix}
 a && b \\\\
 c && d
 end{bmatrix}
 $$
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/19 1`] = `
-VFile {
-  "contents": "- X
+"- X
   - Tab
 - X
   - Tab
@@ -61,17 +42,11 @@ VFile {
   - 3 spaces
 - X
   - 4 Spaces
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/19 2`] = `
-VFile {
-  "contents": "-   X
+"-   X
     -   Tab
 -   X
     -   Tab
@@ -81,10 +56,5 @@ VFile {
     -   3 spaces
 -   X
     -   4 Spaces
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;

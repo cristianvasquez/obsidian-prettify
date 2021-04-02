@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Add quotes 1`] = `
-VFile {
-  "contents": "---
+"---
 Name:
   - '#Hello'
   - World
@@ -21,17 +20,11 @@ date updated: '2010-06-10T00:20:00+02:00'
 Outside frontmatter
 
 #tag
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Adds tags 1`] = `
-VFile {
-  "contents": "---
+"---
 Name:
   - '#Hi'
 date updated: '2010-06-10T00:20:00+02:00'
@@ -40,74 +33,44 @@ tags:
   - '#world'
 
 ---
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Creates a header 1`] = `
-VFile {
-  "contents": "---
+"---
 date updated: '2010-06-10T00:20:00+02:00'
 
 ---
 
 No Header
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Creates date first time 1`] = `
-VFile {
-  "contents": "---
+"---
 date updated: '2010-06-10T00:20:00+02:00'
 
 ---
 
 No Header
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Does not create a header 1`] = `
-VFile {
-  "contents": "No Header
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"No Header
+"
 `;
 
 exports[`Does not modify date 1`] = `
-VFile {
-  "contents": "---
+"---
 date updated: '1999-06-10T00:20:00+02:00'
 
 ---
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Maintains properties in header 1`] = `
-VFile {
-  "contents": "---
+"---
 title: Example
 list:
   - oneX
@@ -124,17 +87,11 @@ It's about humans communicating all sorts of things.
 In their own language, with their own model of the world.
 
 perhaps 1% ? of the humans use it for facts?
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Preserve previous tags 1`] = `
-VFile {
-  "contents": "---
+"---
 tags:
   - '#preserve_me'
   - '#hello'
@@ -142,73 +99,44 @@ tags:
 date updated: '2010-06-10T00:20:00+02:00'
 
 ---
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Preserve previous tags 2`] = `
-VFile {
-  "contents": "---
+"---
 date updated: '2010-06-10T00:20:00+02:00'
 tags:
   - '#literatura'
 
 ---
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Respects emojis 1`] = `
-VFile {
-  "contents": "---
+"---
 tag: '#🦐'
 date updated: '2010-06-10T00:20:00+02:00'
 
 ---
 
 🦐
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`Respects hash 1`] = `
-VFile {
-  "contents": "---
+"---
 tag: '#Interpretability'
 date updated: '2010-06-10T00:20:00+02:00'
 
 ---
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
 
 exports[`add quote 1`] = `
-VFile {
-  "contents": "---
+"---
 tag: '#hello'
 date updated: '{{date:YYYY-MM-DDTHH:mm:ssZ}}'
 
 ---
-",
-  "cwd": "/home/cvasquez/obsidian/workspace/.obsidian/plugins/markdown-prettifier",
-  "data": Object {},
-  "history": Array [],
-  "messages": Array [],
-}
+"
 `;
