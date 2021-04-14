@@ -10,11 +10,11 @@
   "description": "Prettifies your markdown!",
   "main": "index.js",
   "scripts": {
-    "dev": "rollup --config rollup.config.js -w",
+    "dev": "rollup --config rollup.config.js -w --configDebug",
+    "build_dev": "rollup --config rollup.config.js --configDebug",
     "build": "rollup --config rollup.config.js",
     "test": "jest",
     "test-update": "jest --updateSnapshot"
-
   },
   "repository": {
     "type": "git",
