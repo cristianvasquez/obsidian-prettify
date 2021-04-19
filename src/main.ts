@@ -1,173 +1,150 @@
 import {App, MarkdownView, Notice, Plugin, PluginSettingTab, Setting} from "obsidian";
 
-// @ts-ignore
-import Template from './template'
-// @ts-ignore
+import Template from './templates'
 import moment from 'moment'
 
-/**
- * Being developed at: https://github.com/cristianvasquez/obsidian-prettify/projects/1
- */
-// @ts-ignore
+import type  { MarkdownPrettifierOptions } from "./domain";
 import prettifier from "./prettifier"
+import { NEW_HEADER_TEMPLATE } from "./constants";
 
-import {NEW_HEADER_TEMPLATE} from './constants'
-
-
-interface MarkdownPrettifierSettings {
-    bullet: string;
-    emphasis: string;
-    rule: string;
-    createHeaderIfNotPresent: boolean;
-    updateHeader: boolean;
-    newHeaderTemplate: string;
-    listItemIndent: string
-}
-
-const DEFAULT_SETTINGS: MarkdownPrettifierSettings = {
-    bullet: '-', // ('*', '+', or '-', default: '*'). Marker to use to for bullets of items in unordered lists
-    emphasis: '_', // ('*' or '_', default: '*'). Marker to use to serialize emphasis
-    rule: '-', // ('*', '-', or '_', default: '*'). Marker to use for thematic breaks
-    createHeaderIfNotPresent: true,
-    updateHeader: true,
-    newHeaderTemplate: NEW_HEADER_TEMPLATE,
-    listItemIndent: 'one'
-}
+const DEFAULT_SETTINGS: MarkdownPrettifierOptions = {
+  bullet: "-", // ('*', '+', or '-', default: '*'). Marker to use to for bullets of items in unordered lists
+  emphasis: "_", // ('*' or '_', default: '*'). Marker to use to serialize emphasis
+  rule: "-", // ('*', '-', or '_', default: '*'). Marker to use for thematic breaks
+  createHeaderIfNotPresent: true,
+  updateHeader: true,
+  newHeaderTemplate: NEW_HEADER_TEMPLATE, //Keep this for legacy
+  listItemIndent: "one",
+};
 
 
 export default class MarkdownPrettifier extends Plugin {
+  // This field stores your plugin settings.
+  settings: MarkdownPrettifierOptions;
 
-    // This field stores your plugin settings.
-    settings: MarkdownPrettifierSettings;
+  onInit() {}
 
-    onInit() {
-    }
+  async loadSettings() {
+    this.settings = Object.assign(DEFAULT_SETTINGS, await this.loadData());
+  }
 
-    async loadSettings() {
-        this.settings = Object.assign(DEFAULT_SETTINGS, await this.loadData());
-    }
+  async saveSettings() {
+    await this.saveData(this.settings);
+  }
 
-    async saveSettings() {
-        await this.saveData(this.settings);
-    }
+  async onload() {
+    console.log("Loading Markdown-Prettifier");
 
-    async onload() {
-        console.log("Loading Markdown-Prettifier");
+    await this.loadSettings();
 
-        await this.loadSettings();
+    this.addSettingTab(new MarkdownPrettifierSettingsTab(this.app, this));
 
-        this.addSettingTab(new MarkdownPrettifierSettingsTab(this.app, this));
+    this.addCommand({
+      id: "markdown-prettifier-run",
+      name: "Run",
+      callback: () => this.runPrettifier(),
+      hotkeys: [
+        {
+          modifiers: ["Mod", "Alt"],
+          key: "l",
+        },
+      ],
+    });
 
-        this.addCommand({
-            id: "markdown-prettifier-run",
-            name: "Run",
-            callback: () => this.runPrettifier(),
-            hotkeys: [
-                {
-                    modifiers: ["Mod", "Alt"],
-                    key: "l",
-                },
-            ],
-        });
+    this.addCommand({
+      id: "markdown-prettifier-update-fields",
+      name: "Update fields",
+      callback: () => this.updateMatters(),
+      hotkeys: [
+        {
+          modifiers: ["Mod", "Alt"],
+          key: "o",
+        },
+      ],
+    });
+  }
 
-        this.addCommand({
-            id: "markdown-prettifier-update-fields",
-            name: "Update fields",
-            callback: () => this.updateMatters(),
-            hotkeys: [
-                {
-                    modifiers: ["Mod", "Alt"],
-                    key: "o",
-                },
-            ],
-        });
-    }
+  onunload() {
+    console.log("Unload Markdown-Prettifier");
+  }
 
-    onunload() {
-        console.log("Unload Markdown-Prettifier");
-    }
+  runPrettifier() {
+    const view = this.app.workspace.activeLeaf.view;
+    if (view instanceof MarkdownView) {
+      // Do work here
+      const editor = view.sourceMode.cmEditor;
 
-    runPrettifier() {
-        const view = this.app.workspace.activeLeaf.view;
-        if (view instanceof MarkdownView) {
-            // Do work here
-            const editor = view.sourceMode.cmEditor;
+      // Remember the cursor
+      const cursor = editor.getCursor();
 
-            // Remember the cursor
-            const cursor = editor.getCursor()
+      editor.execCommand("selectAll");
+      let text = editor.getSelection();
 
-            editor.execCommand('selectAll')
-            let text = editor.getSelection()
-
-            prettifier(text, this.settings, {today: moment(), tags: []}
-            ).then(data => {
-
-                try {
-                    // Calculate difference of lines and provide feedback
-                    const n_before = String(data).split(/\r\n|\r|\n/).length
-                    const n_after = String(text).split(/\r\n|\r|\n/).length
-                    const lines_changed = n_before - n_after
-                    if (lines_changed != 0) {
-                        if (lines_changed > 0) {
-                            new Notice("Prettifier: added " + lines_changed + " lines.");
-                        } else {
-                            new Notice("Prettifier: removed " + lines_changed + " lines.");
-                        }
-                    }
-                    // Update the cursor
-                    if (cursor.line) {
-                        cursor.line = cursor.line + lines_changed
-                    }
-
-                } catch (err) {
-                    console.error(err)
-                }
-                editor.replaceSelection(String(data), "start")
-                editor.setCursor(cursor)
-
-            }).catch((err) => {
-                    console.error(err)
-                    if (err.message) {
-                        new Notice(err.message);
-                    }
-                }
-            );
-
-        }
-    }
-
-    updateMatters() {
-        const view = this.app.workspace.activeLeaf.view;
-        if (view instanceof MarkdownView) {
-            // Do work here
-            const editor = view.sourceMode.cmEditor;
-
-            // Remember the cursor
-            const cursor = editor.getCursor()
-
-            editor.execCommand('selectAll')
-            let text = editor.getSelection()
-
-            let frontMatterData = {
-                today: moment(),
-                tags: new Template().findHashtags(text)
+      prettifier(text, this.settings, { today: moment(), tags: [] })
+        .then((data) => {
+          
+          try {
+            // Calculate difference of lines and provide feedback
+            const n_before = String(data).split(/\r\n|\r|\n/).length;
+            const n_after = String(text).split(/\r\n|\r|\n/).length;
+            const lines_changed = n_before - n_after;
+            if (lines_changed != 0) {
+              if (lines_changed > 0) {
+                new Notice("Prettifier: added " + lines_changed + " lines.");
+              } else {
+                new Notice("Prettifier: removed " + lines_changed + " lines.");
+              }
             }
-
-            prettifier(text, this.settings, frontMatterData
-            ).then(data => {
-                editor.replaceSelection(String(data), "start")
-                editor.setCursor(cursor)
-                new Notice('Updated tags');
-            }).catch((err) => {
-                    console.error(err)
-                    if (err.message) {
-                        new Notice(err.message);
-                    }
-                }
-            );
-
-        }
+            // Update the cursor
+            if (cursor.line) {
+              cursor.line = cursor.line + lines_changed;
+            }
+          } catch (err) {
+            console.error(err);            
+          }
+          
+          editor.replaceSelection(String(data), "start");
+          editor.setCursor(cursor);
+        }).catch((err) => {
+          console.error(err);
+          if (err.message) {
+            new Notice(err.message);
+          }
+        });
     }
+  }
+
+  updateMatters() {
+    const view = this.app.workspace.activeLeaf.view;
+    if (view instanceof MarkdownView) {
+      // Do work here
+      const editor = view.sourceMode.cmEditor;
+
+      // Remember the cursor
+      const cursor = editor.getCursor();
+
+      editor.execCommand("selectAll");
+      let text = editor.getSelection();
+
+      let frontMatterData = {
+        today: moment(),
+        tags: new Template().findHashtags(text),
+      };
+
+      prettifier(text, this.settings, frontMatterData)
+        .then((data) => {
+          editor.replaceSelection(String(data), "start");
+          editor.setCursor(cursor);
+          new Notice("Updated tags");
+        })
+        .catch((err) => {
+          console.error(err);
+          if (err.message) {
+            new Notice(err.message);
+          }
+        });
+    }
+  }
 }
 
 
@@ -200,7 +177,7 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
                     dropdown.addOption("-", "- item");
                     dropdown.setValue(String(settings.bullet))
                         .onChange(async (value) => {
-                            this.plugin.settings.bullet = value;
+                            this.plugin.settings.bullet = value as '*'|'+'|'-';
                             await this.plugin.saveSettings();
                         })
                 }
@@ -215,7 +192,10 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
                     dropdown.addOption('tab', "tab");
                     dropdown.setValue(String(this.plugin.settings.listItemIndent))
                         .onChange(async (value) => {
-                            this.plugin.settings.listItemIndent = value;
+                            this.plugin.settings.listItemIndent = value as
+                              | "one"
+                              | "mixed"
+                              | "tab";
                             await this.plugin.saveSettings();
                         })
                 }
@@ -230,7 +210,9 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
                     dropdown.addOption("*", "*emphasis*");
                     dropdown.addOption("_", "_emphasis_");
                     dropdown.setValue(String(settings.emphasis)).onChange(async (value) => {
-                        this.plugin.settings.emphasis = value;
+                        this.plugin.settings.emphasis = value as
+                          | "*"
+                          | "_";
                         await this.plugin.saveSettings();
                     })
                 }
@@ -246,7 +228,7 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
                     dropdown.addOption("-", "---");
                     dropdown.addOption("_", "___");
                     dropdown.setValue(String(settings.rule)).onChange(async (value) => {
-                        this.plugin.settings.rule = value;
+                        this.plugin.settings.rule = value as "*" | "-" | "_";
                         await this.plugin.saveSettings();
                     })
                 }

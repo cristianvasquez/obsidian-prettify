@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+     "outDir": "./built",
     "baseUrl": ".",
     "inlineSourceMap": true,
     "inlineSources": true,
@@ -15,9 +16,14 @@
       "scripthost",
       "es2015"
     ],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    
   },
-  "include": [
-    "**/*.ts"
+    "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/__tests__/**/*",
   ]
+
 }
