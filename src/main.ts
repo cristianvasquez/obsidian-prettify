@@ -15,6 +15,7 @@ const DEFAULT_SETTINGS: MarkdownPrettifierOptions = {
   updateHeader: true,
   newHeaderTemplate: NEW_HEADER_TEMPLATE, //Keep this for legacy
   listItemIndent: "one",
+  newlinesAroundHeadings: true,
 };
 
 
@@ -233,6 +234,17 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
                     })
                 }
             );
+
+        new Setting(containerEl)
+          .setName('Newlines around headings')
+          .setDesc('Add empty lines around each heading')
+          .addToggle((toggle) => {
+            toggle.setValue(this.plugin.settings.newlinesAroundHeadings);
+            toggle.onChange(async (value) => {
+              this.plugin.settings.newlinesAroundHeadings = value;
+              await this.plugin.saveSettings();
+            });
+          });
 
 
         this.containerEl.createEl("h3", {
