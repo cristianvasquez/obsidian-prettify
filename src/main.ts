@@ -75,7 +75,7 @@ export default class MarkdownPrettifier extends Plugin {
       const editor = view.sourceMode.cmEditor;
 
       // Remember the cursor
-      const cursor = editor.getCursor();
+      const cursor = Object.assign({}, editor.getCursor());
 
       editor.execCommand("selectAll");
       let text = editor.getSelection();
