@@ -129,3 +129,25 @@ test("Indent size", () => {
     expect(data.contents).toMatchSnapshot();
   });
 });
+
+test('Newlines around headings: enabled', () => {
+  const content = `
+# Heading
+Content
+## Subheading
+  `;
+  return prettifier(content, { newlinesAroundHeadings: true }).then((data) => {
+    expect(data.contents).toMatchSnapshot();
+  });
+});
+
+test('Newlines around headings: disabled', () => {
+  const content = `
+# Heading
+Content
+## Subheading
+  `;
+  return prettifier(content, { newlinesAroundHeadings: false }).then((data) => {
+    expect(data.contents).toMatchSnapshot();
+  });
+});

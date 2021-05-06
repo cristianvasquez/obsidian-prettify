@@ -12,7 +12,11 @@ type FontmatterInput = {
   today?: moment.Moment;
 };
 
-type MarkdownPrettifierOptions = Options & FrontMatterOptions
+type CustomOptions = {
+   newlinesAroundHeadings?: boolean;
+}
+
+type MarkdownPrettifierOptions = Options & FrontMatterOptions & CustomOptions;
 
 
 export type { MarkdownPrettifierOptions, FontmatterInput, FrontMatterOptions};
