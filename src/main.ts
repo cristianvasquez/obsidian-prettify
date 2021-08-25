@@ -96,7 +96,7 @@ export default class MarkdownPrettifier extends Plugin {
           
           try {
             // Calculate difference of lines and provide feedback
-            const n_before = String(data).split(/\r\n|\r|\n/).length;
+            const n_before = output.split(/\r\n|\r|\n/).length;
             const n_after = String(text).split(/\r\n|\r|\n/).length;
             const lines_changed = n_before - n_after;
             if (lines_changed != 0) {
@@ -114,7 +114,7 @@ export default class MarkdownPrettifier extends Plugin {
             console.error(err);            
           }
           
-          editor.replaceSelection(String(data), "start");
+          editor.replaceSelection(output, "start");
           editor.setCursor(cursor);
         }).catch((err) => {
           console.error(err);
