@@ -15,6 +15,7 @@ const DEFAULT_SETTINGS: MarkdownPrettifierOptions = {
   updateHeader: true,
   newHeaderTemplate: NEW_HEADER_TEMPLATE, //Keep this for legacy
   listItemIndent: "one",
+  newlinesAroundHeadings: true,
 };
 
 
@@ -248,21 +249,46 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
       }
       );
 
-
+    new Setting(containerEl)
+      .setName('Newlines around headings')
+      .setDesc('Add empty lines around each heading')
+      .addToggle((toggle) => {
+        toggle.setValue(this.plugin.settings.newlinesAroundHeadings);
+        toggle.onChange(async (value) => {
+          this.plugin.settings.newlinesAroundHeadings = value;
+          await this.plugin.saveSettings();
+        });
+      });
+    
     this.containerEl.createEl("h3", {
       text: "Header Settings",
     });
-
+    
     new Setting(this.containerEl)
       .setName("Add new headers")
       .setDesc("Adds a new header if there isn't")
       .addToggle((toggle) => {
-        toggle.setValue(this.plugin.settings.createHeaderIfNotPresent);
-        toggle.onChange(async (value) => {
-          this.plugin.settings.createHeaderIfNotPresent = value;
-          await this.plugin.saveSettings();
+          toggle.setValue(this.plugin.settings.createHeaderIfNotPresent);
+          toggle.onChange(async (value) => {
+              this.plugin.settings.createHeaderIfNotPresent = value;
+              await this.plugin.saveSettings();
+          });
+    });
+
+    this.containerEl.createEl("h3", {
+        text: "Header Settings",
+    });
+
+    new Setting(this.containerEl)
+        .setName("Add new headers")
+        .setDesc("Adds a new header if there isn't")
+        .addToggle((toggle) => {
+            toggle.setValue(this.plugin.settings.createHeaderIfNotPresent);
+            toggle.onChange(async (value) => {
+                this.plugin.settings.createHeaderIfNotPresent = value;
+                await this.plugin.saveSettings();
+            });
         });
-      });
 
     new Setting(containerEl)
       .setName('Header template')

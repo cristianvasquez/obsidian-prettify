@@ -39,11 +39,25 @@ function prettifier(
       .use(frontmatter_writer, options as FrontMatterOptions, frontMatterData);
   }
 
+  const stringifyOptions = Object.assign({}, options)
+
+  if (!stringifyOptions.newlinesAroundHeadings) {
+    stringifyOptions.join = [
+      //@ts-ignore
+      (left, right) => {
+        if (left.type === 'heading' || right.type === 'heading') {
+          return 0;
+        }
+        return 1;
+      },
+    ];
+  }
+
   processor = processor
     .use(wikiLinkPlugin)
     .use(math)
     .use(gfm)
-    .use(stringify, options);
+    .use(stringify, stringifyOptions);
     
   return processor.process(content);
 }
