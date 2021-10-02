@@ -1,4 +1,4 @@
-import stringify from "remark-stringify";
+import stringify from "./stringify";
 import frontmatter from "remark-frontmatter";
 import frontmatter_writer from './frontmatter-writer'
 import type { MarkdownPrettifierOptions, FrontMatterOptions, FontmatterInput } from "./domain";
@@ -57,6 +57,7 @@ function prettifier(
     .use(wikiLinkPlugin)
     .use(math)
     .use(gfm)
+    // @ts-ignore
     .use(stringify, stringifyOptions);
     
   return processor.process(content);

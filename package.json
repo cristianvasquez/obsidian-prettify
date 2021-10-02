@@ -34,7 +34,6 @@
     "remark-images": "^2.0.0",
     "remark-math": "^4.0.0",
     "remark-parse": "^9.0.0",
-    "remark-stringify": "^9.0.1",
     "remark-wiki-link": "^1.0.2",
     "zwitch": "^1.0.5"
   },
