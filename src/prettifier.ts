@@ -17,17 +17,21 @@ import moment from 'moment'
 function prettifier(
     content: string,
     userOptions: MarkdownPrettifierOptions,
-    frontMatterData: FontmatterInput = {today: moment(), tags: []}
+    frontMatterData: FontmatterInput
 ) {
     let options = {...DEFAULT_OPTIONS, ...userOptions};
-
 
     let processor = remark()
 
     if (options.createHeaderIfNotPresent || options.updateHeader) {
         processor = processor
             .use(frontmatter)
-            .use(frontmatter_writer, options as FrontMatterOptions, frontMatterData);
+            .use(frontmatter_writer, options as FrontMatterOptions, {
+                ...{
+                    today: moment(),
+                    tags: []
+                }, ...frontMatterData
+            });
     }
 
     const stringifyOptions = Object.assign({}, options)

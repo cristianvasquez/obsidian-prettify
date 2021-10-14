@@ -53,7 +53,7 @@ export default class MarkdownPrettifier extends Plugin {
 
         this.addCommand({
             id: "markdown-prettifier-update-fields",
-            name: "Hashtag janitor",
+            name: "Run with Hashtag janitor",
             callback: () => this.updateMatters(),
             hotkeys: [
                 {
