@@ -9,18 +9,18 @@ exports[`Basic functionality: a formatted table 1`] = `
 `;
 
 exports[`Basic functionality: alternating keeps information of different codification 1`] = `
-"*   a
-*   b
-    *   c
+"* a
+* b
+  * c
+
+  <!---->
+
+  * d
+    * e
 
     <!---->
 
-    *   d
-        *   e
-
-        <!---->
-
-        *   f
+    * f
 "
 `;
 
@@ -52,12 +52,12 @@ exports[`Basic functionality: enumerate lists 2`] = `
 `;
 
 exports[`Basic functionality: lists use * bullets 1`] = `
-"*   a
-*   b
-    *   c
-    *   d
-        *   e
-        *   f
+"* a
+* b
+  * c
+  * d
+    * e
+    * f
 "
 `;
 
@@ -82,18 +82,18 @@ exports[`Embed youtube 1`] = `
 `;
 
 exports[`Indent size 1`] = `
-"* foo
-* foo
-* foo
-* foo
+"- foo
+- foo
+- foo
+- foo
 "
 `;
 
 exports[`Indent size 2`] = `
-"*   foo
-*   foo
-*   foo
-*   foo
+"-   foo
+-   foo
+-   foo
+-   foo
 "
 `;
 

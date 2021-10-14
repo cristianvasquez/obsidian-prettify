@@ -5,15 +5,16 @@ import moment from 'moment'
 
 import type {MarkdownPrettifierOptions} from "./domain";
 import prettifier from "./prettifier"
-import {NEW_HEADER_TEMPLATE} from "./constants";
+import {NEW_HEADER_TEMPLATE, UPDATE_HEADER_TEMPLATE} from "./constants";
 
 const DEFAULT_SETTINGS: MarkdownPrettifierOptions = {
     bullet: "-", // ('*', '+', or '-', default: '*'). Marker to use to for bullets of items in unordered lists
     emphasis: "_", // ('*' or '_', default: '*'). Marker to use to serialize emphasis
     rule: "-", // ('*', '-', or '_', default: '*'). Marker to use for thematic breaks
     createHeaderIfNotPresent: true,
+    newHeaderTemplate: NEW_HEADER_TEMPLATE,
     updateHeader: true,
-    newHeaderTemplate: NEW_HEADER_TEMPLATE, //Keep this for legacy
+    updateHeaderTemplate: UPDATE_HEADER_TEMPLATE,
     listItemIndent: "one",
     newlinesAroundHeadings: true,
 };
@@ -52,7 +53,7 @@ export default class MarkdownPrettifier extends Plugin {
 
         this.addCommand({
             id: "markdown-prettifier-update-fields",
-            name: "Update fields",
+            name: "Hashtag janitor",
             callback: () => this.updateMatters(),
             hotkeys: [
                 {
@@ -177,11 +178,11 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
 
         new Setting(containerEl)
             .setName("List indent")
-            .setDesc("Whether to use one space or tab to indent lists")
+            .setDesc("Whether to use small or big spaces to indent lists")
             .addDropdown((dropdown) => {
-                    dropdown.addOption('one', "one space");
+                    dropdown.addOption('one', "small");
                     // dropdown.addOption('mixed', "mixed");
-                    dropdown.addOption('tab', "tab");
+                    dropdown.addOption('tab', "big");
                     dropdown.setValue(String(this.plugin.settings.listItemIndent))
                         .onChange(async (value) => {
                             this.plugin.settings.listItemIndent = value as
@@ -238,26 +239,11 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
             });
 
         this.containerEl.createEl("h3", {
-            text: "Header Settings",
+            text: "Add new Header Settings",
         });
 
         new Setting(this.containerEl)
-            .setName("Add new headers")
-            .setDesc("Adds a new header if there isn't")
-            .addToggle((toggle) => {
-                toggle.setValue(this.plugin.settings.createHeaderIfNotPresent);
-                toggle.onChange(async (value) => {
-                    this.plugin.settings.createHeaderIfNotPresent = value;
-                    await this.plugin.saveSettings();
-                });
-            });
-
-        this.containerEl.createEl("h3", {
-            text: "Header Settings",
-        });
-
-        new Setting(this.containerEl)
-            .setName("Add new headers")
+            .setName("Add a new header")
             .setDesc("Adds a new header if there isn't")
             .addToggle((toggle) => {
                 toggle.setValue(this.plugin.settings.createHeaderIfNotPresent);
@@ -268,16 +254,14 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
             });
 
         new Setting(containerEl)
-            .setName('Header template')
-            .setDesc(this.newHeaderTemplateHelp())
+            .setName('New Header template')
+            .setDesc(this.newHeaderValidation())
             .addTextArea((text) => {
                 text
-                    // .setPlaceholder("Example: {{date:YYYYMMDDHHmm}}-")
                     .setValue(this.plugin.settings.newHeaderTemplate || '')
                     .onChange(async (value) => {
                         this.plugin.settings.newHeaderTemplate = value;
-                        this.updateTemplateExample();
-
+                        this.checkNewHeader();
                         if (new Template().isValidYaml(this.plugin.settings.newHeaderTemplate)) {
                             await this.plugin.saveSettings();
                         }
@@ -287,9 +271,13 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
                 text.inputEl.cols = 40;
             });
 
+        this.containerEl.createEl("h3", {
+            text: "Update Header Settings",
+        });
+
         new Setting(this.containerEl)
             .setName("Update header")
-            .setDesc(this.newHeaderHelp())
+            .setDesc(this.updateTemplateHelp())
             .addToggle((toggle) => {
                 toggle.setValue(this.plugin.settings.updateHeader);
                 toggle.onChange(async (value) => {
@@ -298,38 +286,84 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
                 });
             });
 
+        new Setting(containerEl)
+            .setName('Update Header template')
+            .setDesc(this.updateHeaderValidation())
+            .addTextArea((text) => {
+                text
+                    .setValue(this.plugin.settings.updateHeaderTemplate || '')
+                    .onChange(async (value) => {
+                        this.plugin.settings.updateHeaderTemplate = value;
+                        this.checkUpdateHeader();
+                        if (new Template().isValidYaml(this.plugin.settings.updateHeaderTemplate)) {
+                            await this.plugin.saveSettings();
+                        }
+
+                    });
+                text.inputEl.rows = 8;
+                text.inputEl.cols = 40;
+            });
+
     }
 
-    private updateTemplateExample() {
-        const templateLib = new Template()
-        this.templateExample.innerText = templateLib.replace(this.plugin.settings.newHeaderTemplate, moment());
-        let isValid = templateLib.isValidYaml(this.templateExample.innerText)
-        this.templateExampleValidity.innerText = isValid ? "is valid YAML" : "is NOT valid YAML"
-    }
-
-    private newHeaderHelp(): DocumentFragment {
+    private updateTemplateHelp(): DocumentFragment {
         const descEl = document.createDocumentFragment();
-        descEl.appendText('Headers will be updated with the data defined in the template');
+        descEl.appendText('If there is a header, they will be updated with the data defined in the template');
         descEl.appendChild(document.createElement('br'));
         descEl.appendText('useful to update the "modified date" value');
         return descEl;
     }
 
-    private newHeaderTemplateHelp(): DocumentFragment {
+
+    newHeaderExample = document.createElement('b');
+    newHeaderIsValid = document.createElement('b');
+
+    private newHeaderValidation(): DocumentFragment {
         const descEl = document.createDocumentFragment();
         descEl.appendText('Newly created headers will use this template. This needs to be YAML');
         descEl.appendChild(document.createElement('br'));
         this.dateFormattingDescription(descEl);
 
-
-        this.updateTemplateExample();
+        this.checkNewHeader()
         descEl.appendText('Your current header ')
-        descEl.appendChild(this.templateExampleValidity);
+        descEl.appendChild(this.newHeaderIsValid);
         descEl.appendText(' and the syntax looks like this:')
         descEl.appendChild(document.createElement('br'));
-        descEl.appendChild(this.templateExample);
+        descEl.appendChild(this.newHeaderExample);
         return descEl;
     }
+
+    private checkNewHeader() {
+        let templateLib = new Template()
+        this.newHeaderExample.innerText = templateLib.replace(this.plugin.settings.newHeaderTemplate, moment());
+        let isValid = templateLib.isValidYaml(this.newHeaderExample.innerText)
+        this.newHeaderIsValid.innerText = isValid ? "is valid YAML" : "is NOT valid YAML"
+    }
+
+
+    updateHeaderExample = document.createElement('b');
+    updateHeaderIsValid = document.createElement('b');
+
+    private updateHeaderValidation(): DocumentFragment {
+        const descEl = document.createDocumentFragment();
+
+        this.checkUpdateHeader()
+
+        descEl.appendText('Your current header ')
+        descEl.appendChild(this.updateHeaderIsValid);
+        descEl.appendText(' and the syntax looks like this:')
+        descEl.appendChild(document.createElement('br'));
+        descEl.appendChild(this.updateHeaderExample);
+        return descEl;
+    }
+
+    private checkUpdateHeader() {
+        let templateLib = new Template()
+        this.updateHeaderExample.innerText = templateLib.replace(this.plugin.settings.updateHeaderTemplate, moment());
+        let isValid = templateLib.isValidYaml(this.updateHeaderExample.innerText)
+        this.updateHeaderIsValid.innerText = isValid ? "is valid YAML" : "is NOT valid YAML"
+    }
+
 
     private dateFormattingDescription(descEl: DocumentFragment) {
         descEl.appendText('you can use {{date}} as format, or things like {{date:YYY-MM-DD}}.');
@@ -346,8 +380,4 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
         descEl.appendChild(a);
         descEl.appendChild(document.createElement('br'));
     }
-
-    templateExample = document.createElement('b');
-    templateExampleValidity = document.createElement('b');
-
 }

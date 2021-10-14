@@ -34,18 +34,19 @@ function metadataWriter(
     if (!hasMetadata && options.createHeaderIfNotPresent) {
       metadataNode = {
         type: "yaml",
-        value: jsYaml.dump(newValues(options.newHeaderTemplate, input)),
+        value: jsYaml.dump(newHeaderTemplateYAML(options.newHeaderTemplate, input)),
       };
       ast.children.unshift(metadataNode);
       hasMetadata = true;
-    }
-
-    if (options.updateHeader && hasMetadata) {
-      // Write metadata (by reference)
-      metadataNode.value = mergeValues(
-        metadataNode.value,
-        newValues(options.newHeaderTemplate, input)
-      );
+    } else {
+      // Only updates if frontmatter already created
+      if (options.updateHeader && hasMetadata) {
+        // Write metadata (by reference)
+        metadataNode.value = mergeValues(
+            metadataNode.value,
+            newHeaderTemplateYAML(options.updateHeaderTemplate, input)
+        );
+      }
     }
 
     if (typeof next === "function") {
@@ -58,7 +59,7 @@ function metadataWriter(
   return transformer;
 }
 
-function newValues(newHeaderTemplate:string, frontMatterData: FontmatterInput) {
+function newHeaderTemplateYAML(newHeaderTemplate:string, frontMatterData: FontmatterInput) {
   // Update dates and times
   if (frontMatterData.today) {
     newHeaderTemplate = String(
@@ -69,7 +70,6 @@ function newValues(newHeaderTemplate:string, frontMatterData: FontmatterInput) {
   // Add things like new tags
   let resultYaml: any = jsYaml.load(newHeaderTemplate);
   if (frontMatterData.tags) {
-
     resultYaml.tags = frontMatterData.tags;
   }
   // Return a map

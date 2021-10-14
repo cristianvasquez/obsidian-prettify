@@ -26,6 +26,20 @@ test("Creates a header", () => {
   });
 });
 
+test("Do not update if it's a new header", () => {
+  const content = `No Header`;
+  return prettifier(
+      content,
+      {
+        createHeaderIfNotPresent: true,
+        updateHeader:true
+      },
+      { today: fixed_date }
+  ).then((data) => {
+    expect(data.contents).toMatchSnapshot();
+  });
+});
+
 test("Creates date first time", () => {
   const content = `No Header`;
   return prettifier(
@@ -39,6 +53,21 @@ test("Creates date first time", () => {
     expect(data.contents).toMatchSnapshot();
   });
 });
+
+test("Does not create header if update but not create", () => {
+  const content = `No Header`;
+  return prettifier(
+      content,
+      {
+        createHeaderIfNotPresent: false,
+        updateHeader: true,
+      },
+      { today: fixed_date }
+  ).then((data) => {
+    expect(data.contents).toMatchSnapshot();
+  });
+});
+
 
 test("Does not modify date", () => {
   const content = `---
@@ -77,6 +106,7 @@ some text
 test("Respects hash", () => {
   const content = `---
 tag: '#Interpretability'
+
 ---
             `;
   return prettifier(content, {}, { today: fixed_date }).then((data) => {
@@ -87,8 +117,8 @@ tag: '#Interpretability'
 test("Respects emojis", () => {
   const content = `---
 tag: '#🦐'
----
-🦐
+
+---🦐
             `;
   return prettifier(content, {}, { today: fixed_date }).then((data) => {
     expect(data.contents).toMatchSnapshot();
@@ -98,6 +128,7 @@ tag: '#🦐'
 test("add quote", () => {
   const content = `---
 tag: #hello
+
 ---
             `;
   return prettifier(

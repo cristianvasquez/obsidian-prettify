@@ -9,27 +9,18 @@ import remark from "remark";
 
 import toMarkdown from './mdast-util-to-markdown-patch'
 
-import {NEW_HEADER_TEMPLATE} from "./constants";
+import {NEW_HEADER_TEMPLATE, UPDATE_HEADER_TEMPLATE, DEFAULT_OPTIONS} from "./constants";
 
 import moment from 'moment'
 
+
 function prettifier(
     content: string,
-    options: MarkdownPrettifierOptions = {
-        bullet: "-",
-        fence: "~",
-        emphasis: "_",
-        rule: "-",
-        fences: true,
-        listItemIndent: "one",
-        tightDefinitions: false,
-        incrementListMarker: true,
-        createHeaderIfNotPresent: false,
-        newHeaderTemplate: NEW_HEADER_TEMPLATE,
-        updateHeader: true,
-    },
+    userOptions: MarkdownPrettifierOptions,
     frontMatterData: FontmatterInput = {today: moment(), tags: []}
 ) {
+    let options = {...DEFAULT_OPTIONS, ...userOptions};
+
 
     let processor = remark()
 

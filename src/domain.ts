@@ -2,7 +2,8 @@ import {Options} from "mdast-util-to-markdown";
 
 
 type FrontMatterOptions = {
-  newHeaderTemplate?: any;
+  newHeaderTemplate?:any;
+  updateHeaderTemplate?: any;
   createHeaderIfNotPresent?: boolean;
   updateHeader?: boolean;
 }

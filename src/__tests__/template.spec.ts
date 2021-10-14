@@ -5,7 +5,7 @@ const template = new Templates();
 import moment from 'moment'
 const one_day_in_the_past = moment('2010-06-09T15:20:00-07:00')
 
-it("No date format formatting using standad format", () => {
+it("No date format formatting using standard format", () => {
     const input = `---
 date updated: '{{date}}' 
 ---`;
