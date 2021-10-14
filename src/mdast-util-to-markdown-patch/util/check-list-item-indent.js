@@ -1,7 +1,7 @@
 module.exports = checkListItemIndent
 
 function checkListItemIndent(context) {
-  var style = context.options.listItemIndent || 'tab'
+  var style = context.options.listItemIndent  || 'tab'
 
   if (style === 1 || style === '1') {
     return 'one'

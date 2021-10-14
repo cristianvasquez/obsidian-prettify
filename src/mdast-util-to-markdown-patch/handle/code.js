@@ -4,7 +4,7 @@ var repeat = require('repeat-string')
 var streak = require('longest-streak')
 var formatCodeAsIndented = require('../util/format-code-as-indented')
 var checkFence = require('../util/check-fence')
-var indentLines = require('../util/indent-lines')
+// var indentLines = require('../util/indent-lines')
 var safe = require('../util/safe')
 
 function code(node, _, context) {
@@ -18,7 +18,8 @@ function code(node, _, context) {
 
   if (formatCodeAsIndented(node, context)) {
     exit = context.enter('codeIndented')
-    value = indentLines(raw, map)
+    // value = indentLines(raw, map)
+    value = raw
   } else {
     sequence = repeat(marker, Math.max(streak(raw, marker) + 1, 3))
     exit = context.enter('codeFenced')

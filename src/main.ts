@@ -74,25 +74,16 @@ export default class MarkdownPrettifier extends Plugin {
         const view = this.app.workspace.activeLeaf.view;
         if (view instanceof MarkdownView) {
             // Do work here
-            const editor = view.sourceMode.cmEditor;
+            const editor = view.editor;
+
 
             // Remember the cursor
             const cursor = Object.assign({}, editor.getCursor());
-
-            editor.execCommand("selectAll");
-            let text = editor.getSelection();
+            let text = editor.getDoc().getValue()
 
             prettifier(text, this.settings, {today: moment(), tags: []})
                 .then((data) => {
                     let output = String(data);
-
-                    // fix indentation issue, only check for indent using tab only
-                    if (this.settings.listItemIndent == "tab") {
-                        output = output.replace(/- {2,}/g, '- ');
-                        //remark use 4 spaces to indent https://github.com/syntax-tree/mdast-util-to-markdown/blob/main/lib/handle/list-item.js#L41
-                        //@ts-ignore
-                        output = output.replaceAll('    ', '\t');
-                    }
 
                     try {
                         // Calculate difference of lines and provide feedback
@@ -109,8 +100,7 @@ export default class MarkdownPrettifier extends Plugin {
                     } catch (err) {
                         console.error(err);
                     }
-
-                    editor.replaceSelection(output, "start");
+                    editor.setValue(output)
                     editor.setCursor(cursor);
                 }).catch((err) => {
                 console.error(err);
@@ -125,13 +115,11 @@ export default class MarkdownPrettifier extends Plugin {
         const view = this.app.workspace.activeLeaf.view;
         if (view instanceof MarkdownView) {
             // Do work here
-            const editor = view.sourceMode.cmEditor;
+            const editor = view.editor;
 
             // Remember the cursor
             const cursor = editor.getCursor();
-
-            editor.execCommand("selectAll");
-            let text = editor.getSelection();
+            let text = editor.getDoc().getValue()
 
             let frontMatterData = {
                 today: moment(),
@@ -140,7 +128,7 @@ export default class MarkdownPrettifier extends Plugin {
 
             prettifier(text, this.settings, frontMatterData)
                 .then((data) => {
-                    editor.replaceSelection(String(data), "start");
+                    editor.setValue(String(data))
                     editor.setCursor(cursor);
                     new Notice("Updated tags");
                 })
@@ -195,13 +183,13 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
             .setDesc("Whether to use one space or tab to indent lists")
             .addDropdown((dropdown) => {
                     dropdown.addOption('one', "one space");
-                    dropdown.addOption('mixed', "mixed");
+                    // dropdown.addOption('mixed', "mixed");
                     dropdown.addOption('tab', "tab");
                     dropdown.setValue(String(this.plugin.settings.listItemIndent))
                         .onChange(async (value) => {
                             this.plugin.settings.listItemIndent = value as
                                 | "one"
-                                | "mixed"
+                                // | "mixed"
                                 | "tab";
                             await this.plugin.saveSettings();
                         })

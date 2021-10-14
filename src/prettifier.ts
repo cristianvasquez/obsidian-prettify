@@ -1,4 +1,3 @@
-import stringify from "./stringify";
 import frontmatter from "remark-frontmatter";
 import frontmatter_writer from './frontmatter-writer'
 import type { MarkdownPrettifierOptions, FrontMatterOptions, FontmatterInput } from "./domain";
@@ -7,6 +6,8 @@ import {wikiLinkPlugin} from "./wikilinks";
 import gfm from 'remark-gfm';
 import math from 'remark-math'
 import remark from "remark";
+
+import toMarkdown from './mdast-util-to-markdown-patch'
 
 
 import { NEW_HEADER_TEMPLATE } from "./constants";
@@ -62,5 +63,21 @@ function prettifier(
     
   return processor.process(content);
 }
+
+
+
+function stringify(options: any) {
+    var self = this
+    this.Compiler = compile
+    function compile(tree: any) {
+        return toMarkdown(
+            tree,
+            Object.assign({}, self.data('settings'), options, {
+                extensions: self.data('toMarkdownExtensions') || []
+            })
+        )
+    }
+}
+
 
 export default prettifier
