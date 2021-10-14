@@ -51,6 +51,12 @@ I wrote this, but I don't remember when!
 
 ```
 
+Headers can be configured through a template, for example:
+
+```
+date updated: '{{date:YYYY-MM-DDTHH:mm:ssZ}}
+```
+
 ### Autolink literals
 
 **Example**
@@ -119,7 +125,7 @@ After:
 |     x | y     | z     |
 ```
 
-## This plugin uses the following amazing libraries
+## This plugin uses the following libraries
 
 -   [remark](https://github.com/remarkjs/remark)
 -   [remark-gfm](https://github.com/remarkjs/remark-gfm#readme)
@@ -154,6 +160,7 @@ OBSIDIAN_VAULT_DIR=/path/to/your/obsidian/vault
 mkdir -p $OBSIDIAN_VAULT_DIR/.obsidian/plugins
 unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plugins
 ```
+
 
 ## Version History
 

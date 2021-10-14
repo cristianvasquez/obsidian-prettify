@@ -18,7 +18,6 @@ const DEFAULT_SETTINGS: MarkdownPrettifierOptions = {
     newlinesAroundHeadings: true,
 };
 
-
 export default class MarkdownPrettifier extends Plugin {
     // This field stores your plugin settings.
     settings: MarkdownPrettifierOptions;
@@ -38,9 +37,7 @@ export default class MarkdownPrettifier extends Plugin {
         console.log("Loading Markdown-Prettifier");
 
         await this.loadSettings();
-
         this.addSettingTab(new MarkdownPrettifierSettingsTab(this.app, this));
-
         this.addCommand({
             id: "markdown-prettifier-run",
             name: "Run",
@@ -91,7 +88,7 @@ export default class MarkdownPrettifier extends Plugin {
                         const n_after = String(text).split(/\r\n|\r|\n/).length;
                         const lines_changed = n_before - n_after;
                         if (lines_changed != 0) {
-                            new Notice("Prettifier: changed " + lines_changed + " lines.");
+                            new Notice(`Prettifier:  ${lines_changed} changed lines.`);
                         }
                         // Update the cursor
                         if (cursor.line) {
