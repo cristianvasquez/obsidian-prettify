@@ -89,7 +89,7 @@ export default class MarkdownPrettifier extends Plugin {
                         const n_after = String(text).split(/\r\n|\r|\n/).length;
                         const lines_changed = n_before - n_after;
                         if (lines_changed != 0) {
-                            new Notice(`Prettifier:  ${lines_changed} changed lines.`);
+                            new Notice(`Prettifier:  ${lines_changed} lines.`);
                         }
                         // Update the cursor
                         if (cursor.line) {
