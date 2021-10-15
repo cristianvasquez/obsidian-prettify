@@ -176,6 +176,11 @@ unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plu
 
 ## Version History
 
+### v.0.0.8
+
+- Separation between new header template and update template
+- UUID support
+
 ### v.0.0.7
 
 - New Refactor tags functionality (ctrl+shift+o)
