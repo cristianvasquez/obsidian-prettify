@@ -2,6 +2,7 @@
 
 exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/1 1`] = `
 "# issues/1
+
 Prettifier:
 
 - [ ] Don't break my TODO
@@ -10,6 +11,7 @@ Prettifier:
 
 exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/1 2`] = `
 "# issues/1
+
 1. fjlkefjl
    1. feafe
 2. feafea
@@ -30,30 +32,30 @@ $$
 `;
 
 exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/19 1`] = `
-"* X
-  * Tab
-* X
-  * Tab
-* X
-  * 2 spaces
-* X
-  * 3 spaces
-* X
-  * 4 Spaces
+"- X
+  - Tab
+- X
+  - Tab
+- X
+  - 2 spaces
+- X
+  - 3 spaces
+- X
+  - 4 Spaces
 "
 `;
 
 exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/19 2`] = `
-"*   X
-    *   Tab
-*   X
-    *   Tab
-*   X
-    *   2 spaces
-*   X
-    *   3 spaces
-*   X
-    *   4 Spaces
+"-   X
+    -   Tab
+-   X
+    -   Tab
+-   X
+    -   2 spaces
+-   X
+    -   3 spaces
+-   X
+    -   4 Spaces
 "
 `;
 
