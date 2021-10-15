@@ -26,6 +26,24 @@ test("Creates a header", () => {
   });
 });
 
+test("Creates a header with an UUID", () => {
+  const content = `No Header`;
+  const newHeaderTemplate =`
+id: {{UUID}}
+`
+
+  return prettifier(
+      content,
+      {
+        createHeaderIfNotPresent: true,
+        newHeaderTemplate: newHeaderTemplate
+      },
+      { today: fixed_date }
+  ).then((data) => {
+    expect(data.contents).not.toContain('id: {{UUID}}')
+  });
+});
+
 test("Do not update if it's a new header", () => {
   const content = `No Header`;
   return prettifier(

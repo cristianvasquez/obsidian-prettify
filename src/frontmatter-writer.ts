@@ -61,10 +61,14 @@ function metadataWriter(
 }
 
 function newHeaderTemplateYAML(newHeaderTemplate: string, frontMatterData: FontmatterInput) {
+
+    // Update uuids
+    newHeaderTemplate = template.replaceUUID(newHeaderTemplate)
+
     // Update dates and times
     if (frontMatterData.today) {
         newHeaderTemplate = String(
-            template.replace(newHeaderTemplate, frontMatterData.today)
+            template.replaceDates(newHeaderTemplate, frontMatterData.today)
         );
     }
 

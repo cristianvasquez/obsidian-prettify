@@ -12,7 +12,7 @@ date updated: '{{date}}'
     const expectedOuput = `---
 date updated: '201006100020' 
 ---`;
-    const data = template.replace(input, one_day_in_the_past)
+    const data = template.replaceDates(input, one_day_in_the_past)
     expect(data).toBe(expectedOuput);
 });
 
@@ -24,7 +24,7 @@ date updated: '{{date:YYYYMMDD}}'
 date updated: '20100610' 
 ---`;
 
-    const data = template.replace(input, one_day_in_the_past)
+    const data = template.replaceDates(input, one_day_in_the_past)
     expect(data).toBe(expectedOuput);
 });
 
@@ -36,7 +36,7 @@ date updated: '{{date:YYYY}}/{{date:MMM}}/{{date:DD_ddd}}'
 date updated: '2010/Jun/10_Thu' 
 ---`;
 
-    const data = template.replace(input, one_day_in_the_past)
+    const data = template.replaceDates(input, one_day_in_the_past)
     expect(data).toBe(expectedOuput);
 
 });
@@ -68,7 +68,7 @@ Name: 🦐
     const expectedOuput = `---
 Name: 🦐 
 ---`;
-    const data = template.replace(input, one_day_in_the_past)
+    const data = template.replaceDates(input, one_day_in_the_past)
     expect(data).toBe(expectedOuput);
 });
 
@@ -85,4 +85,15 @@ it("Finds hashtags", () => {
 
     const data = template.findHashtags(input)
     expect(data).toEqual(['#ble', '#bla_bla####', '#bleBlu', '#ble/bla/blo', '#blex#blix']);
+});
+
+it("Replaces UUID", () => {
+    const input = `---
+uuid: {{UUID}} 🦐
+---`;
+    const expectedOuput = `---
+uuid: {{UUID}} 🦐
+---`;
+    const data = template.replaceUUID(input)
+    expect(data).not.toBe(expectedOuput);
 });

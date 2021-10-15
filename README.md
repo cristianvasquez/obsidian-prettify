@@ -51,10 +51,22 @@ I wrote this, but I don't remember when!
 
 ```
 
-Headers can be configured through a template, for example:
+Headers can be configured through a template, to add dates or IDs
+
+To generate dates you can use the [moment.js format](https://momentjs.com/docs/#/displaying/format), like
 
 ```
-date updated: '{{date:YYYY-MM-DDTHH:mm:ssZ}}
+date created: '{{date}}'
+```
+
+```
+date updated: '{{date:YYYY-MM-DDTHH:mm:ssZ}}'
+```
+
+To generate RFC4122 UUID (universal Ids), use the following format:
+
+```
+id: {{UUID}}
 ```
 
 ### Autolink literals
