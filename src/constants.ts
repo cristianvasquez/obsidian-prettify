@@ -3,15 +3,15 @@ export const DEFAULT_DATE_FORMAT = 'YYYYMMDDHHmm';
 export const DATE_REGEX = /(?<target>{{date:?(?<date>[^}]*)}})/g;
 
 export const NEW_HEADER_TEMPLATE =`
-date created: '{{date:YYYY-MM-DD HH:mm}}' 
+date created: "{{date:YYYY-MM-DD HH:mm}}" 
 `
 export const UPDATE_HEADER_TEMPLATE =`
-date updated: '{{date:YYYY-MM-DD HH:mm}}' 
+date updated: "{{date:YYYY-MM-DD HH:mm}}" 
 `
 export const DEFAULT_OPTIONS ={
     bullet: "-",
-    fence: "~",
-    emphasis: "_",
+    fence: "`",
+    emphasis: "*",
     rule: "-",
     fences: true,
     listItemIndent: "one",
