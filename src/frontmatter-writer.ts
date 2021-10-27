@@ -35,8 +35,8 @@ function metadataWriter(
         if (!hasMetadata && options.createHeaderIfNotPresent) {
             metadataNode = {
                 type: "yaml",
-                value: jsYaml.dump(newHeaderTemplateYAML(options.newHeaderTemplate, input)),
-            };
+                value: jsYaml.dump(newHeaderTemplateYAML(options.newHeaderTemplate, input)).replace(/\n$/, ""),
+        };
             ast.children.unshift(metadataNode);
             hasMetadata = true;
         } else {
@@ -46,7 +46,7 @@ function metadataWriter(
                 metadataNode.value = mergeValues(
                     metadataNode.value,
                     newHeaderTemplateYAML(options.updateHeaderTemplate, input)
-                );
+                ).replace(/\n$/, "");
             }
         }
 
