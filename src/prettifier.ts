@@ -1,6 +1,6 @@
 import frontmatter from "remark-frontmatter";
 import frontmatter_writer from './frontmatter-writer'
-import type {MarkdownPrettifierOptions, FrontMatterOptions, FontmatterInput} from "./domain";
+import type {FontmatterInput, FrontMatterOptions, MarkdownPrettifierOptions} from "./domain";
 
 import {wikiLinkPlugin} from "./wikilinks";
 import gfm from 'remark-gfm';
@@ -9,7 +9,7 @@ import remark from "remark";
 
 import toMarkdown from './mdast-util-to-markdown-patch'
 
-import {NEW_HEADER_TEMPLATE, UPDATE_HEADER_TEMPLATE, DEFAULT_OPTIONS} from "./constants";
+import {DEFAULT_OPTIONS} from "./constants";
 
 import moment from 'moment'
 
@@ -20,7 +20,6 @@ function prettifier(
     frontMatterData: FontmatterInput
 ) {
     let options = {...DEFAULT_OPTIONS, ...userOptions};
-
     let processor = remark()
 
     if (options.createHeaderIfNotPresent || options.updateHeader) {

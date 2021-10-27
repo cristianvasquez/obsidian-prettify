@@ -1,20 +1,19 @@
 module.exports = code
 
-var repeat = require('repeat-string')
-var streak = require('longest-streak')
-var formatCodeAsIndented = require('../util/format-code-as-indented')
-var checkFence = require('../util/check-fence')
-// var indentLines = require('../util/indent-lines')
-var safe = require('../util/safe')
+const repeat = require('repeat-string')
+const streak = require('longest-streak')
+const formatCodeAsIndented = require('../util/format-code-as-indented')
+const checkFence = require('../util/check-fence')
+const safe = require('../util/safe')
 
 function code(node, _, context) {
-  var marker = checkFence(context)
-  var raw = node.value || ''
-  var suffix = marker === '`' ? 'GraveAccent' : 'Tilde'
-  var value
-  var sequence
-  var exit
-  var subexit
+  const marker = checkFence(context)
+  const raw = node.value || ''
+  const suffix = marker === '`' ? 'GraveAccent' : 'Tilde'
+  let value
+  let sequence
+  let exit
+  let subexit
 
   if (formatCodeAsIndented(node, context)) {
     exit = context.enter('codeIndented')
@@ -58,8 +57,4 @@ function code(node, _, context) {
 
   exit()
   return value
-}
-
-function map(line, _, blank) {
-  return (blank ? '' : '    ') + line
 }

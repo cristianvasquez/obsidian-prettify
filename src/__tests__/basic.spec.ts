@@ -6,7 +6,7 @@ test("Basic functionality: a formatted table", () => {
 |---:|:---|---|
 |a |b |c|
 |x |y |z|`;
-  return prettifier(content).then((data) => {
+  return prettifier(content,{},{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
@@ -20,7 +20,7 @@ test("Basic functionality: lists use * bullets", () => {
     - e
     - f
             `;
-  return prettifier(content, { bullet: "*" }).then((data) => {
+  return prettifier(content, { bullet: "*" },{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
@@ -34,7 +34,7 @@ test("Basic functionality: lists use - bullets", () => {
     * e
     * f
             `;
-  return prettifier(content).then((data) => {
+  return prettifier(content,{},{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
@@ -48,7 +48,7 @@ test("Basic functionality: alternating keeps information of different codificati
     - e
     * f
             `;
-  return prettifier(content, { bullet: "*" }).then((data) => {
+  return prettifier(content, { bullet: "*" },{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
@@ -62,7 +62,7 @@ test("Basic functionality: enumerate lists", () => {
 1. bar
 1. baz
             `;
-  return prettifier(content).then((data) => {
+  return prettifier(content,{},{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
@@ -76,14 +76,14 @@ test("Basic functionality: enumerate lists", () => {
 1. bar
 1. baz
             `;
-  return prettifier(content).then((data) => {
+  return prettifier(content,{},{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
 
 test("Basic functionality: dont break obsidian links", () => {
   const content = `[[respect this]]`;
-  return prettifier(content).then((data) => {
+  return prettifier(content,{},{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
@@ -92,7 +92,7 @@ test("Embed youtube", () => {
   const content = `
 https://www.youtube.com/watch?v=B6rKUf9DWRI
             `;
-  return prettifier(content).then((data) => {
+  return prettifier(content,{},{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
@@ -101,7 +101,7 @@ test("Embed image", () => {
   const content = `
 https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg
             `;
-  return prettifier(content).then((data) => {
+  return prettifier(content,{},{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
@@ -113,7 +113,7 @@ test("Indent size", () => {
 -   foo
 -  foo
             `;
-  return prettifier(content, { listItemIndent: "one" }).then((data) => {
+  return prettifier(content, { listItemIndent: "one" },{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
@@ -125,7 +125,7 @@ test("Indent size", () => {
 -   foo
 -  foo
             `;
-  return prettifier(content, { listItemIndent: "tab" }).then((data) => {
+  return prettifier(content, { listItemIndent: "tab" },{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
@@ -136,7 +136,7 @@ test('Newlines around headings: enabled', () => {
 Content
 ## Subheading
   `;
-  return prettifier(content, { newlinesAroundHeadings: true }).then((data) => {
+  return prettifier(content, { newlinesAroundHeadings: true },{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });
@@ -147,7 +147,7 @@ test('Newlines around headings: disabled', () => {
 Content
 ## Subheading
   `;
-  return prettifier(content, { newlinesAroundHeadings: false }).then((data) => {
+  return prettifier(content, { newlinesAroundHeadings: false },{}).then((data) => {
     expect(data.contents).toMatchSnapshot();
   });
 });

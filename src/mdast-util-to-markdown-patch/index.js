@@ -4,7 +4,7 @@ var zwitch = require('zwitch')
 var configure = require('./configure')
 var defaultHandlers = require('./handle')
 var defaultJoin = require('./join')
-var defaultUnsafe = require('./unsafe')
+var defaultUnsafe = []
 
 function toMarkdown(tree, options) {
   var settings = options || {}

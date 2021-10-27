@@ -13,7 +13,8 @@ Name:
 - #howdy_bla
 - #howdy-bla
 
-## Other tag: #Nothing&#xA;tags: #Nothing
+## Other tag: #Nothing
+tags: #Nothing
 
 Outside frontmatter
 
@@ -41,7 +42,6 @@ date created: 2010-06-10 00:20
 No Header
 "
 `;
-
 
 exports[`Creates date first time 1`] = `
 "---

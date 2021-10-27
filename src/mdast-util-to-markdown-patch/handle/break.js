@@ -1,9 +1,9 @@
 module.exports = hardBreak
 
-var patternInScope = require('../util/pattern-in-scope')
+const patternInScope = require('../util/pattern-in-scope')
 
 function hardBreak(node, _, context, safe) {
-  var index = -1
+  let index = -1
 
   while (++index < context.unsafe.length) {
     // If we can’t put eols in this construct (setext headings, tables), use a

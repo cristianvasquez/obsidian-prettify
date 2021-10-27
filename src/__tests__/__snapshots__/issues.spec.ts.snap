@@ -88,3 +88,8 @@ exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/49 1
 #12
 "
 `;
+
+exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/80 1`] = `
+"[[test_1]]
+"
+`;

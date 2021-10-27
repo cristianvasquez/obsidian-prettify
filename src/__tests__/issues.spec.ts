@@ -12,7 +12,7 @@ describe("issues", () => {
 Prettifier:
 - [ ] Don't break my TODO
             `;
-    return prettifier(content).then((data) => {
+    return prettifier(content,{},{}).then((data) => {
       expect(data.contents).toMatchSnapshot();
     });
   });
@@ -28,7 +28,7 @@ Prettifier:
     1. fea
 3. fefe
             `;
-    return prettifier(content).then((data) => {
+    return prettifier(content,{},{}).then((data) => {
       expect(data.contents).toMatchSnapshot();
     });
   });
@@ -42,7 +42,7 @@ c && d
 \end{bmatrix}
 $$
             `;
-    return prettifier(content).then((data) => {
+    return prettifier(content,{},{}).then((data) => {
       expect(data.contents).toMatchSnapshot();
     });
   });
@@ -62,7 +62,7 @@ $$
             `;
     return prettifier(content, {
       listItemIndent: "one",
-    }).then((data) => {
+    },{}).then((data) => {
       expect(data.contents).toMatchSnapshot();
     });
   });
@@ -82,7 +82,7 @@ $$
             `;
     return prettifier(content, {
       listItemIndent: "tab",
-    }).then((data) => {
+    },{}).then((data) => {
       expect(data.contents).toMatchSnapshot();
     });
   });
@@ -96,8 +96,7 @@ $$
 \end{aligned}$$`;
     return prettifier(content, {
       listItemIndent: "one",
-    
-    }).then((data) => {
+    },{}).then((data) => {
       expect(data.contents).toMatchSnapshot();
     });
   });
@@ -108,7 +107,7 @@ $$
 $$x + y$$`;
     return prettifier(content, {
       listItemIndent: "one",
-    }).then((data) => {
+    },{}).then((data) => {
       expect(data.contents).toMatchSnapshot();
     });
   });
@@ -120,7 +119,7 @@ $$x + y$$`;
 `;
     return prettifier(content, {
       listItemIndent: "one",
-    }).then((data) => {
+    },{}).then((data) => {
       expect(data.contents).toMatchSnapshot();
     });
   });
@@ -133,8 +132,20 @@ $$x + y$$`;
 `;
     return prettifier(content, {
       listItemIndent: "one",
-    }).then((data) => {
+    },{}).then((data) => {
       expect(data.contents).toMatchSnapshot();
     });
   });
+
+
+  test("https://github.com/cristianvasquez/obsidian-prettify/issues/80", () => {
+    const content = `
+[[test_1]] 
+`;
+    return prettifier(content, {},{}).then((data) => {
+      expect(data.contents).toMatchSnapshot();
+    });
+  });
+
+
 });
