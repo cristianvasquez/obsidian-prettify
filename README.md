@@ -4,6 +4,13 @@ Tries to fix and reformat ugly Markdown and adds things like 'modified date' etc
 
 The default hotkey is `Ctrl+Alt+L`.
 
+## Other similar plugins
+
+Here there are some alternatives to check out :)
+
+-   [obsidian-plugin-prettier](https://github.com/hipstersmoothie/obsidian-plugin-prettier)
+-   [Obsidian Linter](https://github.com/platers/obsidian-linter)
+
 ## Examples
 
 ### Hashtags janitor
@@ -176,6 +183,11 @@ unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plu
 
 ## Version History
 
+### v.1.1
+
+- Fixed some escaping bugs
+- Removed space for frontmatter
+
 ### v.0.0.9
 
 - Separation between new header template and update template
@@ -215,6 +227,10 @@ Included: [remark-gfm](https://github.com/remarkjs/remark-gfm#readme) and [remar
 ### v0.0.1
 
 Initial Release, just playing around for the first time with Obsidian and the plugins. No settings, Just the minimum possible
+
+## Disclaimer
+
+This plugin is provided as is, and is focused on my personal use of Obsidian on Linux. As such it is not thoroughly tested across all operating systems and features of Obsidian.
 
 ---
 
