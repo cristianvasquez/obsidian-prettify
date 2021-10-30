@@ -236,4 +236,4 @@ This plugin is provided as is, and is focused on my personal use of Obsidian on 
 
 Pull requests are both welcome and appreciated. :)
 
-> if you want, you can also send me a coffee <https://www.buymeacoffee.com/pelado>
+> I love coffee, you can send me one here: <https://www.buymeacoffee.com/pelado> :D
