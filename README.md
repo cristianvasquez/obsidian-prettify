@@ -5,8 +5,7 @@ Tries to fix and reformat ugly Markdown and adds things like 'modified date' etc
 The default hotkey is `Ctrl+Alt+L`.
 
 ## Other similar plugins
-
-Here there are some alternatives to check out :)
+Other alternatives to check out :)
 
 -   [obsidian-plugin-prettier](https://github.com/hipstersmoothie/obsidian-plugin-prettier)
 -   [Obsidian Linter](https://github.com/platers/obsidian-linter)
