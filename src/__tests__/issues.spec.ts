@@ -47,18 +47,11 @@ $$
     });
   });
 
-  test("https://github.com/cristianvasquez/obsidian-prettify/issues/19", () => {
+  test("https://github.com/cristianvasquez/obsidian-prettify/issues/19 space", () => {
     const content = `
-- X
-    *   Tab
-- X
-    * Tab
-- X
-  * 2 spaces
-- X
-   * 3 spaces
-- X
-    * 4 Spaces
+-   Hello
+    -   How are you
+        -   Today?
             `;
     return prettifier(content, {
       listItemIndent: "one",
@@ -67,18 +60,11 @@ $$
     });
   });
 
-  test("https://github.com/cristianvasquez/obsidian-prettify/issues/19", () => {
+  test("https://github.com/cristianvasquez/obsidian-prettify/issues/19 tab", () => {
     const content = `
-- X
-    *   Tab
-- X
-    * Tab
-- X
-  * 2 spaces
-- X
-   * 3 spaces
-- X
-    * 4 Spaces
+-   Hello
+    -   How are you
+        -   Today?
             `;
     return prettifier(content, {
       listItemIndent: "tab",
@@ -146,6 +132,5 @@ $$x + y$$`;
       expect(data.contents).toMatchSnapshot();
     });
   });
-
 
 });

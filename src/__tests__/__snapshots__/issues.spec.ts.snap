@@ -31,31 +31,17 @@ $$
 "
 `;
 
-exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/19 1`] = `
-"- X
-  - Tab
-- X
-  - Tab
-- X
-  - 2 spaces
-- X
-  - 3 spaces
-- X
-  - 4 Spaces
+exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/19 space 1`] = `
+"- Hello
+  - How are you
+    - Today?
 "
 `;
 
-exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/19 2`] = `
-"-   X
-    -   Tab
--   X
-    -   Tab
--   X
-    -   2 spaces
--   X
-    -   3 spaces
--   X
-    -   4 Spaces
+exports[`issues https://github.com/cristianvasquez/obsidian-prettify/issues/19 tab 1`] = `
+"- Hello
+	- How are you
+		- Today?
 "
 `;
 

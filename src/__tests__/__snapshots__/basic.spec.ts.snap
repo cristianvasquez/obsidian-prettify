@@ -13,12 +13,8 @@ exports[`Basic functionality: alternating keeps information of different codific
 * b
   * c
 
-  <!---->
-
   * d
     * e
-
-    <!---->
 
     * f
 "
@@ -90,10 +86,10 @@ exports[`Indent size 1`] = `
 `;
 
 exports[`Indent size 2`] = `
-"-   foo
--   foo
--   foo
--   foo
+"- foo
+- foo
+- foo
+- foo
 "
 `;
 

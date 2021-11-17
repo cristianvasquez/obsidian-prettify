@@ -1,25 +1,25 @@
 module.exports = indentLines
 
-const eol = /\r?\n|\r/g;
+var eol = /\r?\n|\r/g
 
 function indentLines(value, map) {
-    const result = [];
-    let start = 0;
-    let line = 0;
-    let match;
+  var result = []
+  var start = 0
+  var line = 0
+  var match
 
-    while ((match = eol.exec(value))) {
-        one(value.slice(start, match.index))
-        result.push(match[0])
-        start = match.index + match[0].length
-        line++
-    }
+  while ((match = eol.exec(value))) {
+    one(value.slice(start, match.index))
+    result.push(match[0])
+    start = match.index + match[0].length
+    line++
+  }
 
-    one(value.slice(start))
+  one(value.slice(start))
 
-    return result.join('')
+  return result.join('')
 
-    function one(value) {
-        result.push(map(value, line, !value))
-    }
+  function one(value) {
+    result.push(map(value, line, !value))
+  }
 }

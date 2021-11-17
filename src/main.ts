@@ -180,9 +180,9 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
             .setName("List indent")
             .setDesc("Whether to use small or big spaces to indent lists")
             .addDropdown((dropdown) => {
-                    dropdown.addOption('one', "small");
+                    dropdown.addOption('one', "space");
                     // dropdown.addOption('mixed', "mixed");
-                    dropdown.addOption('tab', "big");
+                    dropdown.addOption('tab', "tab");
                     dropdown.setValue(String(this.plugin.settings.listItemIndent))
                         .onChange(async (value) => {
                             this.plugin.settings.listItemIndent = value as

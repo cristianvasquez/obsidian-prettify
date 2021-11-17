@@ -8,6 +8,7 @@ import math from 'remark-math'
 import remark from "remark";
 
 import toMarkdown from './mdast-util-to-markdown-patch'
+import listItem from './mdast-util-to-markdown-patch/tab_bug/listItemWithTaskListItem'
 
 import {DEFAULT_OPTIONS} from "./constants";
 
@@ -47,10 +48,14 @@ function prettifier(
         ];
     }
 
+    stringifyOptions.handlers = {
+        listItem: listItem
+    }
+
     processor = processor
+        .use(gfm)
         .use(wikiLinkPlugin)
         .use(math)
-        .use(gfm)
         // @ts-ignore
         .use(stringify, stringifyOptions);
 
@@ -63,6 +68,7 @@ function stringify(options: any) {
     this.Compiler = compile
 
     function compile(tree: any) {
+
         return toMarkdown(
             tree,
             Object.assign({}, self.data('settings'), options, {
