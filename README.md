@@ -4,13 +4,6 @@ Tries to fix and reformat ugly Markdown and adds things like 'modified date' etc
 
 The default hotkey is `Ctrl+Alt+L`.
 
-## Other similar plugins
-
-Here there are some alternatives to check out :)
-
--   [obsidian-plugin-prettier](https://github.com/hipstersmoothie/obsidian-plugin-prettier)
--   [Obsidian Linter](https://github.com/platers/obsidian-linter)
-
 ## Examples
 
 ### Hashtags janitor
@@ -144,6 +137,13 @@ After:
 |     x | y     | z     |
 ```
 
+
+## Other similar plugins
+Other alternatives to check out :)
+
+-   [obsidian-plugin-prettier](https://github.com/hipstersmoothie/obsidian-plugin-prettier)
+-   [Obsidian Linter](https://github.com/platers/obsidian-linter)
+
 ## This plugin uses the following libraries
 
 -   [remark](https://github.com/remarkjs/remark)
@@ -236,4 +236,4 @@ This plugin is provided as is, and is focused on my personal use of Obsidian on 
 
 Pull requests are both welcome and appreciated. :)
 
-> if you want, you can also send me a coffee <https://www.buymeacoffee.com/pelado>
+> I love coffee, you can send me one here: <https://www.buymeacoffee.com/pelado> :D
