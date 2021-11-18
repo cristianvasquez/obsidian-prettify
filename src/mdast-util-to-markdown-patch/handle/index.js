@@ -1,3 +1,4 @@
+exports.blockquote = require('./blockquote')
 exports.break = require('./break')
 exports.code = require('./code')
 exports.definition = require('./definition')

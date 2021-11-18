@@ -67,6 +67,12 @@ exports[`Basic functionality: lists use - bullets 1`] = `
 "
 `;
 
+exports[`Basic functionality: no spread 1`] = `
+"- one
+- two
+"
+`;
+
 exports[`Embed image 1`] = `
 "<https://cyberculturesblog.files.wordpress.com/2019/01/Memex.jpg>
 "
@@ -106,5 +112,10 @@ exports[`Newlines around headings: enabled 1`] = `
 Content
 
 ## Subheading
+"
+`;
+
+exports[`Quoted test 1`] = `
+"> quoted test
 "
 `;

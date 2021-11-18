@@ -6,7 +6,7 @@ var defaultHandlers = require('./handle')
 var defaultJoin = require('./join')
 var defaultUnsafe = []
 
-function toMarkdown(tree, options) {
+function toMarkdown (tree, options) {
   var settings = options || {}
   var context = {
     enter: enter,
@@ -35,7 +35,7 @@ function toMarkdown(tree, options) {
     handlers: context.handlers
   })
 
-  result = context.handle(tree, null, context, {before: '\n', after: '\n'})
+  result = context.handle(tree, null, context, { before: '\n', after: '\n' })
 
   if (
     result &&
@@ -47,25 +47,25 @@ function toMarkdown(tree, options) {
 
   return result
 
-  function enter(name) {
+  function enter (name) {
     context.stack.push(name)
     return exit
 
-    function exit() {
+    function exit () {
       context.stack.pop()
     }
   }
 }
 
-function invalid(value) {
+function invalid (value) {
   throw new Error('Cannot handle value `' + value + '`, expected node')
 }
 
-function unknown(node) {
+function unknown (node) {
   throw new Error('Cannot handle unknown node `' + node.type + '`')
 }
 
-function joinDefinition(left, right) {
+function joinDefinition (left, right) {
   // No blank line between adjacent definitions.
   if (left.type === 'definition' && left.type === right.type) {
     return 0

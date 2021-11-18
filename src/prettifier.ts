@@ -48,6 +48,7 @@ function prettifier(
         ];
     }
 
+    //https://github.com/cristianvasquez/obsidian-prettify/issues/19
     stringifyOptions.handlers = {
         listItem: listItem
     }
