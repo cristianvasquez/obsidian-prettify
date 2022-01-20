@@ -75,7 +75,6 @@ export default class MarkdownPrettifier extends Plugin {
                 (text: string) => {
                     return {
                         today: moment(),
-                        tags: new Template().findHashtags(text),
                         addUUIDIfNotPresent: true
                     };
                 }, "Updated uuid"
@@ -88,20 +87,19 @@ export default class MarkdownPrettifier extends Plugin {
     }
 
     async runPrettifier() {
-
-
-        const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-        if (view) {
+        const view = this.app.workspace.activeLeaf.view;
+        if (view instanceof MarkdownView) {
             // Do work here
             const editor = view.editor;
 
             // Remember the cursor
             const cursor = Object.assign({}, editor.getCursor());
-
             let text = editor.getDoc().getValue()
+
             prettifier(text, this.settings, {today: moment(), tags: []})
                 .then((data) => {
                     let output = String(data);
+
                     try {
                         // Calculate difference of lines and provide feedback
                         const n_before = output.split(/\r\n|\r|\n/).length;
@@ -117,7 +115,7 @@ export default class MarkdownPrettifier extends Plugin {
                     } catch (err) {
                         console.error(err);
                     }
-                    editor.getDoc().setValue(output)
+                    editor.setValue(output)
                     editor.setCursor(cursor);
                 }).catch((err) => {
                 console.error(err);
@@ -125,14 +123,12 @@ export default class MarkdownPrettifier extends Plugin {
                     new Notice(err.message);
                 }
             });
-
         }
-
     }
 
     async updateMatters(options, message: string) {
-        const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-        if (view) {
+        const view = this.app.workspace.activeLeaf.view;
+        if (view instanceof MarkdownView) {
 
             // Do work here
             const editor = view.editor;
@@ -140,19 +136,15 @@ export default class MarkdownPrettifier extends Plugin {
             // Remember the cursor
             const cursor = Object.assign({}, editor.getCursor());
 
+            let text = await getActiveFileContent(this.app, true)
             const currentFile = this.app.workspace?.activeLeaf?.view?.file
-
-            await getActiveFileContent(this.app, true) // I imagine this refresh metadata
-
             const metadata: CachedMetadata = this.app.metadataCache.getFileCache(currentFile)
-
-            let text = editor.getDoc().getValue()
             const input: FontmatterInput = options(text)
 
             frontmatter(text, metadata, this.settings, input)
                 .then((data) => {
                     let output = String(data);
-                    editor.getDoc().setValue(output)
+                    editor.setValue(output)
                     editor.setCursor(cursor);
                     new Notice(message);
                 })
