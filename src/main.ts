@@ -1,11 +1,14 @@
-import {App, MarkdownView, Notice, Plugin, PluginSettingTab, Setting} from "obsidian";
+import {App, CachedMetadata, MarkdownView, Notice, Plugin, PluginSettingTab, Setting} from "obsidian";
 
 import Template from './templates'
 import moment from 'moment'
+import {getActiveFileContent} from 'obsidian-community-lib'
 
 import type {MarkdownPrettifierOptions} from "./domain";
+import {FontmatterInput} from "./domain";
 import prettifier from "./prettifier"
 import {NEW_HEADER_TEMPLATE, UPDATE_HEADER_TEMPLATE} from "./constants";
+import frontmatter from "./frontmatter";
 
 const DEFAULT_SETTINGS: MarkdownPrettifierOptions = {
     bullet: "-", // ('*', '+', or '-', default: '*'). Marker to use to for bullets of items in unordered lists
@@ -52,15 +55,30 @@ export default class MarkdownPrettifier extends Plugin {
         });
 
         this.addCommand({
-            id: "markdown-prettifier-update-fields",
-            name: "Run with Hashtag janitor",
-            callback: () => this.updateMatters(),
-            hotkeys: [
-                {
-                    modifiers: ["Mod", "Alt"],
-                    key: "o",
-                },
-            ],
+            id: "markdown-prettifier-update-hash",
+            name: "Run Hashtag janitor",
+            callback: () => this.updateMatters(
+                (text: string) => {
+                    return {
+                        today: moment(),
+                        tags: new Template().findHashtags(text),
+                        addUUIDIfNotPresent: false
+                    };
+                }, "Updated tags"
+            )
+        });
+
+        this.addCommand({
+            id: "markdown-prettifier-add-uuid",
+            name: "Add uuid to frontmatter if not present",
+            callback: () => this.updateMatters(
+                (text: string) => {
+                    return {
+                        today: moment(),
+                        addUUIDIfNotPresent: true
+                    };
+                }, "Updated uuid"
+            )
         });
     }
 
@@ -68,12 +86,11 @@ export default class MarkdownPrettifier extends Plugin {
         console.log("Unload Markdown-Prettifier");
     }
 
-    runPrettifier() {
+    async runPrettifier() {
         const view = this.app.workspace.activeLeaf.view;
         if (view instanceof MarkdownView) {
             // Do work here
             const editor = view.editor;
-
 
             // Remember the cursor
             const cursor = Object.assign({}, editor.getCursor());
@@ -109,26 +126,27 @@ export default class MarkdownPrettifier extends Plugin {
         }
     }
 
-    updateMatters() {
+    async updateMatters(options, message: string) {
         const view = this.app.workspace.activeLeaf.view;
         if (view instanceof MarkdownView) {
+
             // Do work here
             const editor = view.editor;
 
             // Remember the cursor
-            const cursor = editor.getCursor();
-            let text = editor.getDoc().getValue()
+            const cursor = Object.assign({}, editor.getCursor());
 
-            let frontMatterData = {
-                today: moment(),
-                tags: new Template().findHashtags(text),
-            };
+            let text = await getActiveFileContent(this.app, true)
+            const currentFile = this.app.workspace?.activeLeaf?.view?.file
+            const metadata: CachedMetadata = this.app.metadataCache.getFileCache(currentFile)
+            const input: FontmatterInput = options(text)
 
-            prettifier(text, this.settings, frontMatterData)
+            frontmatter(text, metadata, this.settings, input)
                 .then((data) => {
-                    editor.setValue(String(data))
+                    let output = String(data);
+                    editor.setValue(output)
                     editor.setCursor(cursor);
-                    new Notice("Updated tags");
+                    new Notice(message);
                 })
                 .catch((err) => {
                     console.error(err);
@@ -354,13 +372,13 @@ class MarkdownPrettifierSettingsTab extends PluginSettingTab {
         return descEl;
     }
 
-    private applyTemplate(template:string){
+    private applyTemplate(template: string) {
         let templateLib = new Template()
         let text = templateLib.replaceUUID(template)
         text = templateLib.replaceDates(text, moment())
         return {
-            text:text,
-            valid:templateLib.isValidYaml(text)
+            text: text,
+            valid: templateLib.isValidYaml(text)
         }
     }
 

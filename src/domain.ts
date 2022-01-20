@@ -11,6 +11,7 @@ type FrontMatterOptions = {
 type FontmatterInput = {
   tags?: string[];
   today?: moment.Moment;
+  addUUIDIfNotPresent?:boolean
 };
 
 type CustomOptions = {

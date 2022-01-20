@@ -183,6 +183,11 @@ unzip ~/Downloads/obsidian-prettify-0.1.zip -d $OBSIDIAN_VAULT_DIR/.obsidian/plu
 
 ## Version History
 
+### v.1.4
+
+- Added 'add uuid' option
+- Hashtag janitor now it's independent of prettifier.
+
 ### v.1.1
 
 - Fixed some escaping bugs

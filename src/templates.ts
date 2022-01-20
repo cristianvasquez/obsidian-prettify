@@ -28,6 +28,10 @@ class Templates {
         }
     }
 
+    getNewUUID(){
+        return uuidv4()
+    }
+
     replaceUUID(input: string) {
         if (input.includes('{{UUID}}')) {
             const uuid = uuidv4()
