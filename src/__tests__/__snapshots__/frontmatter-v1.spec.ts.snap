@@ -33,6 +33,24 @@ Name:
 "
 `;
 
+exports[`Adds tags empty template 1`] = `
+"---
+
+Name:
+
+- #Hi
+
+---
+"
+`;
+
+exports[`Adds tags empty template 2`] = `
+"---
+
+No content
+"
+`;
+
 exports[`Creates a header 1`] = `
 "---
 date created: 2010-06-10 00:20

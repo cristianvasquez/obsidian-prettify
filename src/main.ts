@@ -1,8 +1,7 @@
-import {App, CachedMetadata, MarkdownView, Notice, Plugin, PluginSettingTab, Setting} from "obsidian";
+import {App, MarkdownView, Notice, Plugin, PluginSettingTab, Setting} from "obsidian";
 
 import Template from './templates'
 import moment from 'moment'
-import {getActiveFileContent} from 'obsidian-community-lib'
 
 import type {MarkdownPrettifierOptions} from "./domain";
 import {FontmatterInput} from "./domain";
@@ -55,17 +54,15 @@ export default class MarkdownPrettifier extends Plugin {
         });
 
         this.addCommand({
-            id: "markdown-prettifier-update-hash",
-            name: "Run Hashtag janitor",
-            callback: () => this.updateMatters(
-                (text: string) => {
-                    return {
-                        today: moment(),
-                        tags: new Template().findHashtags(text),
-                        addUUIDIfNotPresent: false
-                    };
-                }, "Updated tags"
-            )
+            id: "markdown-prettifier-update-fields",
+            name: "Run with Hashtag janitor",
+            callback: () => this.updateTags(),
+            hotkeys: [
+                {
+                    modifiers: ["Mod", "Alt"],
+                    key: "o",
+                },
+            ],
         });
 
         this.addCommand({
@@ -75,7 +72,7 @@ export default class MarkdownPrettifier extends Plugin {
                 (text: string) => {
                     return {
                         today: moment(),
-                        tags: new Template().findHashtags(text),
+                        tags: [],
                         addUUIDIfNotPresent: true
                     };
                 }, "Updated uuid"
@@ -87,21 +84,21 @@ export default class MarkdownPrettifier extends Plugin {
         console.log("Unload Markdown-Prettifier");
     }
 
-    async runPrettifier() {
-
-
-        const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-        if (view) {
+    runPrettifier() {
+        const view = this.app.workspace.activeLeaf.view;
+        if (view instanceof MarkdownView) {
             // Do work here
             const editor = view.editor;
 
+
             // Remember the cursor
             const cursor = Object.assign({}, editor.getCursor());
-
             let text = editor.getDoc().getValue()
+
             prettifier(text, this.settings, {today: moment(), tags: []})
                 .then((data) => {
                     let output = String(data);
+
                     try {
                         // Calculate difference of lines and provide feedback
                         const n_before = output.split(/\r\n|\r|\n/).length;
@@ -117,7 +114,7 @@ export default class MarkdownPrettifier extends Plugin {
                     } catch (err) {
                         console.error(err);
                     }
-                    editor.getDoc().setValue(output)
+                    editor.setValue(output)
                     editor.setCursor(cursor);
                 }).catch((err) => {
                 console.error(err);
@@ -125,34 +122,56 @@ export default class MarkdownPrettifier extends Plugin {
                     new Notice(err.message);
                 }
             });
-
         }
+    }
 
+    updateTags() {
+        const view = this.app.workspace.activeLeaf.view;
+        if (view instanceof MarkdownView) {
+            // Do work here
+            const editor = view.editor;
+
+            // Remember the cursor
+            const cursor = editor.getCursor();
+            let text = editor.getDoc().getValue()
+
+            let frontMatterData = {
+                today: moment(),
+                tags: new Template().findHashtags(text),
+            };
+
+            prettifier(text, this.settings, frontMatterData)
+                .then((data) => {
+                    editor.setValue(String(data))
+                    editor.setCursor(cursor);
+                    new Notice("Updated tags");
+                })
+                .catch((err) => {
+                    console.error(err);
+                    if (err.message) {
+                        new Notice(err.message);
+                    }
+                });
+        }
     }
 
     async updateMatters(options, message: string) {
-        const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-        if (view) {
+        const view = this.app.workspace.activeLeaf.view;
+        if (view instanceof MarkdownView) {
 
             // Do work here
             const editor = view.editor;
 
             // Remember the cursor
-            const cursor = Object.assign({}, editor.getCursor());
+            const cursor = editor.getCursor();
 
-            const currentFile = this.app.workspace?.activeLeaf?.view?.file
+            let text = editor.getValue()
+            const frontmatterData: FontmatterInput = options(text)
 
-            await getActiveFileContent(this.app, true) // I imagine this refresh metadata
-
-            const metadata: CachedMetadata = this.app.metadataCache.getFileCache(currentFile)
-
-            let text = editor.getDoc().getValue()
-            const input: FontmatterInput = options(text)
-
-            frontmatter(text, metadata, this.settings, input)
+            frontmatter(text, this.settings, frontmatterData)
                 .then((data) => {
                     let output = String(data);
-                    editor.getDoc().setValue(output)
+                    editor.setValue(output)
                     editor.setCursor(cursor);
                     new Notice(message);
                 })

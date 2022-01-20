@@ -31,7 +31,7 @@ function metadataWriter(
         let hasMetadata = !(metadataNode == null);
 
         // If we don't have a Matter node in the AST, put it in.
-        if (!hasMetadata && options.createHeaderIfNotPresent) {
+        if (!hasMetadata && options.createHeaderIfNotPresent && jsYaml.load(options.newHeaderTemplate)) {
             metadataNode = {
                 type: "yaml",
                 value: jsYaml.dump(newHeaderTemplateYAML(options.newHeaderTemplate, input)).replace(/\n$/, ""),

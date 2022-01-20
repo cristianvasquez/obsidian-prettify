@@ -200,6 +200,42 @@ Name:
   });
 });
 
+it("Adds tags empty template", () => {
+  const content = `---
+Name: 
+ - #Hi
+---
+
+
+`;
+  return prettifier(
+      content,
+      {
+        updateHeaderTemplate:''
+      },
+      { today: fixed_date, tags: ["#hello", "#world"] }
+  ).then((data) => {
+    expect(data.contents).toMatchSnapshot();
+  });
+});
+
+it("Adds tags empty template", () => {
+  const content = `---
+
+No content
+`;
+  return prettifier(
+      content,
+      {
+        createHeaderIfNotPresent:true,
+        newHeaderTemplate:''
+      },
+      { today: fixed_date, tags: ["#hello", "#world"] }
+  ).then((data) => {
+    expect(data.contents).toMatchSnapshot();
+  });
+});
+
 it("Preserve previous tags", () => {
   const content = `---
 tags: 

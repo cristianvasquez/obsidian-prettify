@@ -17,6 +17,10 @@ function toMarkdown (opts = {}) {
   function handler (node, _, context) {
     const exit = context.enter('wikiLink')
 
+    if (!context.unsafePatterns){
+      context.unsafePatterns=[]
+    }
+
     const nodeValue = safe(context, node.value, { before: '[', after: ']' })
     const nodeAlias = safe(context, node.data.alias, { before: '[', after: ']' })
 
