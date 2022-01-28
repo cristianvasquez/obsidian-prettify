@@ -1,3 +1,7 @@
+# Note: No longer maintained
+
+For similar functionality I recommend: [obsidian-linter](https://github.com/platers/obsidian-linter) ( I'm using it myself 🙂 )
+
 # Markdown prettifier for Obsidian
 
 Tries to fix and reformat ugly Markdown and adds things like 'modified date' etc.
