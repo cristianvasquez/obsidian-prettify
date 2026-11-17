@@ -10,7 +10,6 @@ node_modules
 package-lock.json
 
 # Outputs
-main.js
 *.js.map
 
 # Comment one of the following lock file in your plugin!

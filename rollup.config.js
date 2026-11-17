@@ -15,6 +15,6 @@ export default (commandLineArgs) => {
       exports: "default",
     },
     external: ["obsidian"],
-    plugins: [json(), typescript(), nodeResolve({ browser: true }), commonjs()],
+    plugins: [json(), typescript({ include: ["**/src/**/*"] }), nodeResolve({ browser: true }), commonjs()],
   };
 };
